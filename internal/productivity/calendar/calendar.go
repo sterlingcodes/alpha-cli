@@ -12,14 +12,11 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
+	googleauth "github.com/unstablemind/pocket/internal/common/google"
 	"github.com/unstablemind/pocket/pkg/output"
 )
 
-const (
-	tokenURL    = "https://oauth2.googleapis.com/token" //nolint:gosec // OAuth endpoint URL, not a credential
-	calendarAPI = "https://www.googleapis.com/calendar/v3"
-)
+const calendarAPI = "https://www.googleapis.com/calendar/v3"
 
 func NewCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -44,81 +41,15 @@ type calendarClient struct {
 }
 
 func newCalendarClient() (*calendarClient, error) {
-	clientID, err := config.MustGet("google_client_id")
+	client, err := googleauth.NewClient()
 	if err != nil {
-		return nil, fmt.Errorf("google_client_id not configured. Run 'pocket setup show calendar' for setup instructions")
-	}
-
-	clientSecret, err := config.MustGet("google_client_secret")
-	if err != nil {
-		return nil, fmt.Errorf("google_client_secret not configured. Run 'pocket setup show calendar' for setup instructions")
-	}
-
-	refreshToken, err := config.MustGet("google_refresh_token")
-	if err != nil {
-		return nil, fmt.Errorf("google_refresh_token not configured. Run 'pocket setup show calendar' for setup instructions")
-	}
-
-	// Exchange refresh token for access token
-	accessToken, err := getAccessToken(clientID, clientSecret, refreshToken)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get access token: %w", err)
+		return nil, err
 	}
 
 	return &calendarClient{
-		accessToken: accessToken,
-		httpClient:  &http.Client{},
+		accessToken: client.AccessToken,
+		httpClient:  client.HTTPClient,
 	}, nil
-}
-
-func getAccessToken(clientID, clientSecret, refreshToken string) (string, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-
-	data := url.Values{}
-	data.Set("client_id", clientID)
-	data.Set("client_secret", clientSecret)
-	data.Set("refresh_token", refreshToken)
-	data.Set("grant_type", "refresh_token")
-
-	req, err := http.NewRequestWithContext(ctx, "POST", tokenURL, bytes.NewBufferString(data.Encode()))
-	if err != nil {
-		return "", err
-	}
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-
-	resp, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return "", err
-	}
-
-	if resp.StatusCode >= 400 {
-		var errResp struct {
-			Error            string `json:"error"`
-			ErrorDescription string `json:"error_description"`
-		}
-		if json.Unmarshal(body, &errResp) == nil && errResp.ErrorDescription != "" {
-			return "", fmt.Errorf("OAuth error: %s", errResp.ErrorDescription)
-		}
-		return "", fmt.Errorf("OAuth error (HTTP %d): %s", resp.StatusCode, string(body))
-	}
-
-	var tokenResp struct {
-		AccessToken string `json:"access_token"`
-		ExpiresIn   int    `json:"expires_in"`
-	}
-
-	if err := json.Unmarshal(body, &tokenResp); err != nil {
-		return "", err
-	}
-
-	return tokenResp.AccessToken, nil
 }
 
 func (c *calendarClient) doRequest(method, endpoint string, body interface{}) ([]byte, error) {

@@ -1,24 +1,19 @@
 package gsheets
 
 import (
-	"context"
+	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
 	"net/url"
 	"strings"
-	"time"
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
+	googleauth "github.com/unstablemind/pocket/internal/common/google"
 	"github.com/unstablemind/pocket/pkg/output"
 )
 
 var baseURL = "https://sheets.googleapis.com/v4/spreadsheets"
-
-var httpClient = &http.Client{Timeout: 30 * time.Second}
 
 // SpreadsheetInfo holds metadata about a spreadsheet
 type SpreadsheetInfo struct {
@@ -73,20 +68,12 @@ func NewCmd() *cobra.Command {
 	cmd.AddCommand(newGetCmd())
 	cmd.AddCommand(newReadCmd())
 	cmd.AddCommand(newSearchCmd())
+	cmd.AddCommand(newWriteCmd())
+	cmd.AddCommand(newAppendCmd())
+	cmd.AddCommand(newClearCmd())
+	cmd.AddCommand(newCreateCmd())
 
 	return cmd
-}
-
-func getAPIKey() (string, error) {
-	key, err := config.Get("google_api_key")
-	if err != nil || key == "" {
-		return "", output.PrintError("setup_required", "Google API key not configured", map[string]any{
-			"missing":   []string{"google_api_key"},
-			"setup_cmd": "pocket config set google_api_key <your-key>",
-			"hint":      "Get an API key from https://console.cloud.google.com/apis/credentials",
-		})
-	}
-	return key, nil
 }
 
 func newGetCmd() *cobra.Command {
@@ -95,7 +82,7 @@ func newGetCmd() *cobra.Command {
 		Short: "Get spreadsheet metadata",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			key, err := getAPIKey()
+			client, err := googleauth.NewClient()
 			if err != nil {
 				return err
 			}
@@ -104,9 +91,9 @@ func newGetCmd() *cobra.Command {
 			reqURL := fmt.Sprintf("%s/%s?fields=properties,sheets.properties",
 				baseURL, url.PathEscape(spreadsheetID))
 
-			data, err := doRequest(reqURL, key)
+			data, err := client.DoGet(reqURL)
 			if err != nil {
-				return err
+				return output.PrintError("request_failed", err.Error(), nil)
 			}
 
 			var resp struct {
@@ -163,7 +150,7 @@ func newReadCmd() *cobra.Command {
 		Long:  `Read cell values. Range format: "Sheet1!A1:D10" or "A1:D10"`,
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			key, err := getAPIKey()
+			client, err := googleauth.NewClient()
 			if err != nil {
 				return err
 			}
@@ -175,9 +162,9 @@ func newReadCmd() *cobra.Command {
 				baseURL, url.PathEscape(spreadsheetID),
 				url.PathEscape(rangeStr))
 
-			data, err := doRequest(reqURL, key)
+			data, err := client.DoGet(reqURL)
 			if err != nil {
-				return err
+				return output.PrintError("request_failed", err.Error(), nil)
 			}
 
 			var resp struct {
@@ -224,7 +211,7 @@ func newSearchCmd() *cobra.Command {
 		Short: "Search for a value across all sheets",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			key, err := getAPIKey()
+			client, err := googleauth.NewClient()
 			if err != nil {
 				return err
 			}
@@ -236,9 +223,9 @@ func newSearchCmd() *cobra.Command {
 			metaURL := fmt.Sprintf("%s/%s?fields=sheets.properties.title",
 				baseURL, url.PathEscape(spreadsheetID))
 
-			metaData, err := doRequest(metaURL, key)
+			metaData, err := client.DoGet(metaURL)
 			if err != nil {
-				return err
+				return output.PrintError("request_failed", err.Error(), nil)
 			}
 
 			var metaResp struct {
@@ -270,9 +257,9 @@ func newSearchCmd() *cobra.Command {
 			batchURL := fmt.Sprintf("%s/%s/values:batchGet?%s",
 				baseURL, url.PathEscape(spreadsheetID), params.Encode())
 
-			batchData, err := doRequest(batchURL, key)
+			batchData, err := client.DoGet(batchURL)
 			if err != nil {
-				return err
+				return output.PrintError("request_failed", err.Error(), nil)
 			}
 
 			var batchResp struct {
@@ -332,50 +319,224 @@ func newSearchCmd() *cobra.Command {
 	return cmd
 }
 
-func doRequest(reqURL, key string) ([]byte, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
+func newWriteCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "write [spreadsheet-id] [range] [values-json]",
+		Short: "Write values to a range",
+		Long:  `Write cell values. Values as JSON array of arrays: '[["A","B"],["C","D"]]'. Range format: "Sheet1!A1:B2"`,
+		Args:  cobra.ExactArgs(3),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			client, err := googleauth.NewClient()
+			if err != nil {
+				return err
+			}
 
-	req, err := http.NewRequestWithContext(ctx, "GET", reqURL, http.NoBody)
-	if err != nil {
-		return nil, output.PrintError("request_failed", fmt.Sprintf("Failed to create request: %s", err.Error()), nil)
+			spreadsheetID := args[0]
+			rangeStr := args[1]
+			valuesJSON := args[2]
+
+			var values [][]interface{}
+			if err := json.Unmarshal([]byte(valuesJSON), &values); err != nil {
+				return output.PrintError("invalid_values", fmt.Sprintf("Values must be a JSON array of arrays: %s", err.Error()), nil)
+			}
+
+			body := map[string]any{
+				"range":  rangeStr,
+				"values": values,
+			}
+			bodyJSON, err := json.Marshal(body)
+			if err != nil {
+				return output.PrintError("marshal_failed", err.Error(), nil)
+			}
+
+			reqURL := fmt.Sprintf("%s/%s/values/%s?valueInputOption=USER_ENTERED",
+				baseURL, url.PathEscape(spreadsheetID), url.PathEscape(rangeStr))
+
+			data, err := client.DoRequest("PUT", reqURL, bytes.NewReader(bodyJSON), "application/json")
+			if err != nil {
+				return output.PrintError("write_failed", err.Error(), nil)
+			}
+
+			var resp struct {
+				UpdatedRange string `json:"updatedRange"`
+				UpdatedRows  int    `json:"updatedRows"`
+				UpdatedCols  int    `json:"updatedColumns"`
+				UpdatedCells int    `json:"updatedCells"`
+			}
+
+			if err := json.Unmarshal(data, &resp); err != nil {
+				return output.PrintError("parse_failed", err.Error(), nil)
+			}
+
+			return output.Print(map[string]any{
+				"spreadsheet_id": spreadsheetID,
+				"updated_range":  resp.UpdatedRange,
+				"updated_rows":   resp.UpdatedRows,
+				"updated_cols":   resp.UpdatedCols,
+				"updated_cells":  resp.UpdatedCells,
+			})
+		},
 	}
 
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
-	req.Header.Set("x-goog-api-key", key)
+	return cmd
+}
 
-	resp, err := httpClient.Do(req)
-	if err != nil {
-		return nil, output.PrintError("request_failed", fmt.Sprintf("Request failed: %s", err.Error()), nil)
+func newAppendCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "append [spreadsheet-id] [range] [values-json]",
+		Short: "Append rows to a sheet",
+		Long:  `Append rows after the last row with data. Values as JSON array of arrays: '[["A","B"],["C","D"]]'. Range format: "Sheet1"`,
+		Args:  cobra.ExactArgs(3),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			client, err := googleauth.NewClient()
+			if err != nil {
+				return err
+			}
+
+			spreadsheetID := args[0]
+			rangeStr := args[1]
+			valuesJSON := args[2]
+
+			var values [][]interface{}
+			if err := json.Unmarshal([]byte(valuesJSON), &values); err != nil {
+				return output.PrintError("invalid_values", fmt.Sprintf("Values must be a JSON array of arrays: %s", err.Error()), nil)
+			}
+
+			body := map[string]any{
+				"range":  rangeStr,
+				"values": values,
+			}
+			bodyJSON, err := json.Marshal(body)
+			if err != nil {
+				return output.PrintError("marshal_failed", err.Error(), nil)
+			}
+
+			reqURL := fmt.Sprintf("%s/%s/values/%s:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS",
+				baseURL, url.PathEscape(spreadsheetID), url.PathEscape(rangeStr))
+
+			data, err := client.DoPost(reqURL, bytes.NewReader(bodyJSON), "application/json")
+			if err != nil {
+				return output.PrintError("append_failed", err.Error(), nil)
+			}
+
+			var resp struct {
+				Updates struct {
+					UpdatedRange string `json:"updatedRange"`
+					UpdatedRows  int    `json:"updatedRows"`
+					UpdatedCols  int    `json:"updatedColumns"`
+					UpdatedCells int    `json:"updatedCells"`
+				} `json:"updates"`
+			}
+
+			if err := json.Unmarshal(data, &resp); err != nil {
+				return output.PrintError("parse_failed", err.Error(), nil)
+			}
+
+			return output.Print(map[string]any{
+				"spreadsheet_id": spreadsheetID,
+				"updated_range":  resp.Updates.UpdatedRange,
+				"updated_rows":   resp.Updates.UpdatedRows,
+				"updated_cols":   resp.Updates.UpdatedCols,
+				"updated_cells":  resp.Updates.UpdatedCells,
+			})
+		},
 	}
-	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, output.PrintError("read_failed", fmt.Sprintf("Failed to read response: %s", err.Error()), nil)
+	return cmd
+}
+
+func newClearCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "clear [spreadsheet-id] [range]",
+		Short: "Clear values from a range",
+		Long:  `Clear cell values in a range. Range format: "Sheet1!A1:D10"`,
+		Args:  cobra.ExactArgs(2),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			client, err := googleauth.NewClient()
+			if err != nil {
+				return err
+			}
+
+			spreadsheetID := args[0]
+			rangeStr := args[1]
+
+			reqURL := fmt.Sprintf("%s/%s/values/%s:clear",
+				baseURL, url.PathEscape(spreadsheetID), url.PathEscape(rangeStr))
+
+			data, err := client.DoPost(reqURL, bytes.NewReader([]byte("{}")), "application/json")
+			if err != nil {
+				return output.PrintError("clear_failed", err.Error(), nil)
+			}
+
+			var resp struct {
+				ClearedRange string `json:"clearedRange"`
+			}
+
+			if err := json.Unmarshal(data, &resp); err != nil {
+				return output.PrintError("parse_failed", err.Error(), nil)
+			}
+
+			return output.Print(map[string]any{
+				"spreadsheet_id": spreadsheetID,
+				"cleared_range":  resp.ClearedRange,
+			})
+		},
 	}
 
-	if resp.StatusCode == 403 {
-		return nil, output.PrintError("forbidden", "Access denied. Ensure the spreadsheet is public and the API key is valid", nil)
+	return cmd
+}
+
+func newCreateCmd() *cobra.Command {
+	var title string
+
+	cmd := &cobra.Command{
+		Use:   "create",
+		Short: "Create a new spreadsheet",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			client, err := googleauth.NewClient()
+			if err != nil {
+				return err
+			}
+
+			body := map[string]any{
+				"properties": map[string]string{
+					"title": title,
+				},
+			}
+			bodyJSON, err := json.Marshal(body)
+			if err != nil {
+				return output.PrintError("marshal_failed", err.Error(), nil)
+			}
+
+			data, err := client.DoPost(baseURL, bytes.NewReader(bodyJSON), "application/json")
+			if err != nil {
+				return output.PrintError("create_failed", err.Error(), nil)
+			}
+
+			var resp struct {
+				SpreadsheetID  string `json:"spreadsheetId"`
+				SpreadsheetURL string `json:"spreadsheetUrl"`
+				Properties     struct {
+					Title string `json:"title"`
+				} `json:"properties"`
+			}
+
+			if err := json.Unmarshal(data, &resp); err != nil {
+				return output.PrintError("parse_failed", err.Error(), nil)
+			}
+
+			return output.Print(map[string]any{
+				"id":    resp.SpreadsheetID,
+				"title": resp.Properties.Title,
+				"url":   resp.SpreadsheetURL,
+			})
+		},
 	}
 
-	if resp.StatusCode == 404 {
-		return nil, output.PrintError("not_found", "Spreadsheet or range not found", nil)
-	}
+	cmd.Flags().StringVar(&title, "title", "", "Spreadsheet title (required)")
+	_ = cmd.MarkFlagRequired("title")
 
-	if resp.StatusCode >= 400 {
-		var errResp struct {
-			Error struct {
-				Message string `json:"message"`
-			} `json:"error"`
-		}
-		if json.Unmarshal(body, &errResp) == nil && errResp.Error.Message != "" {
-			return nil, output.PrintError("api_error", errResp.Error.Message, nil)
-		}
-		return nil, output.PrintError("api_error", fmt.Sprintf("HTTP %d", resp.StatusCode), nil)
-	}
-
-	return body, nil
+	return cmd
 }
 
 func colToLetter(colIndex int) string {

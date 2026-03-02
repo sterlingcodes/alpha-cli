@@ -61,7 +61,7 @@ var configKeysForIntegration = map[string][]string{
 	"discord":      {"discord_token"},
 	"telegram":     {"telegram_token"},
 	"twilio":       {"twilio_sid", "twilio_token", "twilio_phone"},
-	"calendar":     {"google_cred_path"},
+	"calendar":     {"google_client_id", "google_client_secret", "google_refresh_token"},
 	"notion":       {"notion_token"},
 	"todoist":      {"todoist_token"},
 	"newsapi":      {"newsapi_key"},
@@ -81,8 +81,8 @@ var configKeysForIntegration = map[string][]string{
 	"redis":        {"redis_url"},
 	"prometheus":   {"prometheus_url"},
 	"virustotal":   {"virustotal_api_key"},
-	"gdrive":       {"google_api_key"},
-	"gsheets":      {"google_api_key"},
+	"gdrive":       {"google_client_id", "google_client_secret", "google_refresh_token"},
+	"gsheets":      {"google_client_id", "google_client_secret", "google_refresh_token"},
 }
 
 // TestAllAuthIntegrationsHaveStatusCheck verifies that every integration with
@@ -173,7 +173,7 @@ func TestAuthIntegrationsWithSetupCmdHaveServiceEntry(t *testing.T) {
 		}
 
 		// Extract service name from "pocket setup show <name>"
-		const prefix = "pocket setup show "
+		const prefix = "alpha setup show "
 		if !strings.HasPrefix(integ.SetupCmd, prefix) {
 			t.Errorf("integration %q: SetupCmd %q doesn't match expected format %q...", integ.ID, integ.SetupCmd, prefix)
 			continue

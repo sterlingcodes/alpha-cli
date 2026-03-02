@@ -32,7 +32,7 @@ var allIntegrations = []Integration{
 		Group:       "news",
 		Description: "Tech news, stories, and discussions from Hacker News",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket news hn top", "pocket news hn new", "pocket news hn best", "pocket news hn ask", "pocket news hn show", "pocket news hn item [id]"},
+		Commands:    []string{"alpha news hn top", "alpha news hn new", "alpha news hn best", "alpha news hn ask", "alpha news hn show", "alpha news hn item [id]"},
 	},
 	{
 		ID:          "rss",
@@ -40,7 +40,7 @@ var allIntegrations = []Integration{
 		Group:       "news",
 		Description: "Fetch and manage RSS/Atom feeds from any source",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket news feeds fetch [url]", "pocket news feeds list", "pocket news feeds add [url]", "pocket news feeds read [name]", "pocket news feeds remove [name]"},
+		Commands:    []string{"alpha news feeds fetch [url]", "alpha news feeds list", "alpha news feeds add [url]", "alpha news feeds read [name]", "alpha news feeds remove [name]"},
 	},
 	{
 		ID:          "newsapi",
@@ -48,8 +48,8 @@ var allIntegrations = []Integration{
 		Group:       "news",
 		Description: "Search news articles and get headlines from 80,000+ sources",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket news newsapi headlines", "pocket news newsapi search [query]", "pocket news newsapi sources"},
-		SetupCmd:    "pocket setup show newsapi",
+		Commands:    []string{"alpha news newsapi headlines", "alpha news newsapi search [query]", "alpha news newsapi sources"},
+		SetupCmd:    "alpha setup show newsapi",
 	},
 
 	// Knowledge - No Auth
@@ -59,7 +59,7 @@ var allIntegrations = []Integration{
 		Group:       "knowledge",
 		Description: "Search and read Wikipedia articles",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket knowledge wiki search [query]", "pocket knowledge wiki summary [title]", "pocket knowledge wiki article [title]"},
+		Commands:    []string{"alpha knowledge wiki search [query]", "alpha knowledge wiki summary [title]", "alpha knowledge wiki article [title]"},
 	},
 	{
 		ID:          "stackexchange",
@@ -67,7 +67,7 @@ var allIntegrations = []Integration{
 		Group:       "knowledge",
 		Description: "Search programming Q&A from StackOverflow and StackExchange sites",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket knowledge so search [query]", "pocket knowledge so question [id]", "pocket knowledge so answers [id]"},
+		Commands:    []string{"alpha knowledge so search [query]", "alpha knowledge so question [id]", "alpha knowledge so answers [id]"},
 	},
 	{
 		ID:          "dictionary",
@@ -75,7 +75,7 @@ var allIntegrations = []Integration{
 		Group:       "knowledge",
 		Description: "Word definitions, synonyms, antonyms, and pronunciations",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket knowledge dict define [word]", "pocket knowledge dict synonyms [word]", "pocket knowledge dict antonyms [word]"},
+		Commands:    []string{"alpha knowledge dict define [word]", "alpha knowledge dict synonyms [word]", "alpha knowledge dict antonyms [word]"},
 	},
 
 	// Utility - No Auth
@@ -85,7 +85,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Current weather and forecasts for any location",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility weather now [location]", "pocket utility weather forecast [location]"},
+		Commands:    []string{"alpha utility weather now [location]", "alpha utility weather forecast [location]"},
 	},
 	{
 		ID:          "crypto",
@@ -93,7 +93,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Cryptocurrency prices, market data, and trending coins",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility crypto price [coins...]", "pocket utility crypto info [coin]", "pocket utility crypto top", "pocket utility crypto trending", "pocket utility crypto search [query]"},
+		Commands:    []string{"alpha utility crypto price [coins...]", "alpha utility crypto info [coin]", "alpha utility crypto top", "alpha utility crypto trending", "alpha utility crypto search [query]"},
 	},
 	{
 		ID:          "ipinfo",
@@ -101,7 +101,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "IP address lookup with geolocation data",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility ip me", "pocket utility ip lookup [ip]"},
+		Commands:    []string{"alpha utility ip me", "alpha utility ip lookup [ip]"},
 	},
 	{
 		ID:          "domain",
@@ -109,7 +109,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "DNS lookups, WHOIS domain info, and SSL certificate inspection",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility domain dns [domain]", "pocket utility domain whois [domain]", "pocket utility domain ssl [domain]"},
+		Commands:    []string{"alpha utility domain dns [domain]", "alpha utility domain whois [domain]", "alpha utility domain ssl [domain]"},
 	},
 	{
 		ID:          "currency",
@@ -117,7 +117,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Real-time currency exchange rates and conversion",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility currency rate [from] [to]", "pocket utility currency convert [amount] [from] [to]", "pocket utility currency list"},
+		Commands:    []string{"alpha utility currency rate [from] [to]", "alpha utility currency convert [amount] [from] [to]", "alpha utility currency list"},
 	},
 	{
 		ID:          "wayback",
@@ -125,7 +125,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Check archived versions of websites via Internet Archive",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility wayback check [url]", "pocket utility wayback latest [url]", "pocket utility wayback snapshots [url]"},
+		Commands:    []string{"alpha utility wayback check [url]", "alpha utility wayback latest [url]", "alpha utility wayback snapshots [url]"},
 	},
 	{
 		ID:          "holidays",
@@ -133,7 +133,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Public holidays by country and year",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility holidays list [country] [year]", "pocket utility holidays next [country]", "pocket utility holidays countries"},
+		Commands:    []string{"alpha utility holidays list [country] [year]", "alpha utility holidays next [country]", "alpha utility holidays countries"},
 	},
 	{
 		ID:          "translate",
@@ -141,7 +141,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Translate text between languages",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility translate text [text] --from [lang] --to [lang]", "pocket utility translate languages"},
+		Commands:    []string{"alpha utility translate text [text] --from [lang] --to [lang]", "alpha utility translate languages"},
 	},
 	{
 		ID:          "urlshort",
@@ -149,7 +149,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Shorten and expand URLs",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility url shorten [url]", "pocket utility url expand [short-url]"},
+		Commands:    []string{"alpha utility url shorten [url]", "alpha utility url expand [short-url]"},
 	},
 	// Utility - Auth Required
 	{
@@ -158,8 +158,8 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Stock quotes, search, and company info via Alpha Vantage",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket utility stocks quote [symbol]", "pocket utility stocks search [query]", "pocket utility stocks info [symbol]"},
-		SetupCmd:    "pocket setup show alphavantage",
+		Commands:    []string{"alpha utility stocks quote [symbol]", "alpha utility stocks search [query]", "alpha utility stocks info [symbol]"},
+		SetupCmd:    "alpha setup show alphavantage",
 	},
 
 	// Dev - No Auth
@@ -169,7 +169,7 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Search npm packages, get info, versions, and dependencies",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket dev npm search [query]", "pocket dev npm info [package]", "pocket dev npm versions [package]", "pocket dev npm deps [package]"},
+		Commands:    []string{"alpha dev npm search [query]", "alpha dev npm info [package]", "alpha dev npm versions [package]", "alpha dev npm deps [package]"},
 	},
 	{
 		ID:          "pypi",
@@ -177,7 +177,7 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Search Python packages, get info, versions, and dependencies",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket dev pypi search [query]", "pocket dev pypi info [package]", "pocket dev pypi versions [package]", "pocket dev pypi deps [package]"},
+		Commands:    []string{"alpha dev pypi search [query]", "alpha dev pypi info [package]", "alpha dev pypi versions [package]", "alpha dev pypi deps [package]"},
 	},
 	{
 		ID:          "dockerhub",
@@ -185,7 +185,7 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Search Docker images, get tags, and inspect manifests",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket dev dockerhub search [query]", "pocket dev dockerhub image [name]", "pocket dev dockerhub tags [name]", "pocket dev dockerhub inspect [name:tag]"},
+		Commands:    []string{"alpha dev dockerhub search [query]", "alpha dev dockerhub image [name]", "alpha dev dockerhub tags [name]", "alpha dev dockerhub inspect [name:tag]"},
 	},
 
 	// Dev - Auth Required
@@ -195,8 +195,8 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Repos, issues, PRs, notifications, and search on GitHub",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket dev github repos", "pocket dev github repo [owner/name]", "pocket dev github issues", "pocket dev github issue [repo] [num]", "pocket dev github prs -r [repo]", "pocket dev github pr [repo] [num]", "pocket dev github notifications", "pocket dev github search [query]"},
-		SetupCmd:    "pocket setup show github",
+		Commands:    []string{"alpha dev github repos", "alpha dev github repo [owner/name]", "alpha dev github issues", "alpha dev github issue [repo] [num]", "alpha dev github prs -r [repo]", "alpha dev github pr [repo] [num]", "alpha dev github notifications", "alpha dev github search [query]"},
+		SetupCmd:    "alpha setup show github",
 	},
 	{
 		ID:          "gitlab",
@@ -204,8 +204,8 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Projects, issues, and merge requests on GitLab",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket dev gitlab projects", "pocket dev gitlab issues", "pocket dev gitlab mrs"},
-		SetupCmd:    "pocket setup show gitlab",
+		Commands:    []string{"alpha dev gitlab projects", "alpha dev gitlab issues", "alpha dev gitlab mrs"},
+		SetupCmd:    "alpha setup show gitlab",
 	},
 	{
 		ID:          "linear",
@@ -213,8 +213,8 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Issues and project management with Linear",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket dev linear issues", "pocket dev linear teams", "pocket dev linear create [desc]"},
-		SetupCmd:    "pocket setup show linear",
+		Commands:    []string{"alpha dev linear issues", "alpha dev linear teams", "alpha dev linear create [desc]"},
+		SetupCmd:    "alpha setup show linear",
 	},
 	{
 		ID:          "jira",
@@ -222,8 +222,8 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Issues, projects, and sprint management with Atlassian Jira",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket dev jira issues", "pocket dev jira issue [key]", "pocket dev jira projects", "pocket dev jira create [summary]", "pocket dev jira transition [key] [status]"},
-		SetupCmd:    "pocket setup show jira",
+		Commands:    []string{"alpha dev jira issues", "alpha dev jira issue [key]", "alpha dev jira projects", "alpha dev jira create [summary]", "alpha dev jira transition [key] [status]"},
+		SetupCmd:    "alpha setup show jira",
 	},
 	{
 		ID:          "cloudflare",
@@ -231,8 +231,8 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "DNS, zones, cache purge, and analytics via Cloudflare",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket dev cloudflare zones", "pocket dev cloudflare zone [id]", "pocket dev cloudflare dns [zone-id]", "pocket dev cloudflare purge [zone-id]", "pocket dev cloudflare analytics [zone-id]"},
-		SetupCmd:    "pocket setup show cloudflare",
+		Commands:    []string{"alpha dev cloudflare zones", "alpha dev cloudflare zone [id]", "alpha dev cloudflare dns [zone-id]", "alpha dev cloudflare purge [zone-id]", "alpha dev cloudflare analytics [zone-id]"},
+		SetupCmd:    "alpha setup show cloudflare",
 	},
 	{
 		ID:          "vercel",
@@ -240,8 +240,8 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Projects, deployments, domains, and environment variables on Vercel",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket dev vercel projects", "pocket dev vercel project [name]", "pocket dev vercel deployments [project]", "pocket dev vercel domains", "pocket dev vercel env [project]"},
-		SetupCmd:    "pocket setup show vercel",
+		Commands:    []string{"alpha dev vercel projects", "alpha dev vercel project [name]", "alpha dev vercel deployments [project]", "alpha dev vercel domains", "alpha dev vercel env [project]"},
+		SetupCmd:    "alpha setup show vercel",
 	},
 	{
 		ID:          "sentry",
@@ -249,8 +249,8 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Error tracking: projects, issues, and events from Sentry",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket dev sentry projects", "pocket dev sentry issues [project-slug]", "pocket dev sentry issue [issue-id]", "pocket dev sentry events [issue-id]"},
-		SetupCmd:    "pocket setup show sentry",
+		Commands:    []string{"alpha dev sentry projects", "alpha dev sentry issues [project-slug]", "alpha dev sentry issue [issue-id]", "alpha dev sentry events [issue-id]"},
+		SetupCmd:    "alpha setup show sentry",
 	},
 	{
 		ID:          "s3",
@@ -258,8 +258,8 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "List buckets, browse objects, upload/download, and generate presigned URLs",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket dev s3 buckets", "pocket dev s3 ls [s3-path]", "pocket dev s3 get [s3-path] [local-path]", "pocket dev s3 put [local-path] [s3-path]", "pocket dev s3 presign [s3-path]"},
-		SetupCmd:    "pocket setup show s3",
+		Commands:    []string{"alpha dev s3 buckets", "alpha dev s3 ls [s3-path]", "alpha dev s3 get [s3-path] [local-path]", "alpha dev s3 put [local-path] [s3-path]", "alpha dev s3 presign [s3-path]"},
+		SetupCmd:    "alpha setup show s3",
 	},
 	{
 		ID:          "redis",
@@ -267,8 +267,8 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Get/set keys, list keys, and view server info on Redis",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket dev redis get [key]", "pocket dev redis set [key] [value]", "pocket dev redis del [key...]", "pocket dev redis keys [pattern]", "pocket dev redis info"},
-		SetupCmd:    "pocket setup show redis",
+		Commands:    []string{"alpha dev redis get [key]", "alpha dev redis set [key] [value]", "alpha dev redis del [key...]", "alpha dev redis keys [pattern]", "alpha dev redis info"},
+		SetupCmd:    "alpha setup show redis",
 	},
 	{
 		ID:          "prometheus",
@@ -276,8 +276,8 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "PromQL queries, alerts, and scrape targets from Prometheus",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket dev prometheus query [promql]", "pocket dev prometheus range [promql]", "pocket dev prometheus alerts", "pocket dev prometheus targets"},
-		SetupCmd:    "pocket setup show prometheus",
+		Commands:    []string{"alpha dev prometheus query [promql]", "alpha dev prometheus range [promql]", "alpha dev prometheus alerts", "alpha dev prometheus targets"},
+		SetupCmd:    "alpha setup show prometheus",
 	},
 	// Dev - No Auth
 	{
@@ -286,7 +286,7 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Create, list, and read GitHub Gists",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket dev gist list", "pocket dev gist get [id]", "pocket dev gist create [content]"},
+		Commands:    []string{"alpha dev gist list", "alpha dev gist get [id]", "alpha dev gist create [content]"},
 	},
 	{
 		ID:          "kubernetes",
@@ -294,7 +294,7 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Pods, logs, deployments, services, and resource descriptions via kubectl",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket dev kube pods", "pocket dev kube logs [pod]", "pocket dev kube deployments", "pocket dev kube services", "pocket dev kube describe [resource] [name]"},
+		Commands:    []string{"alpha dev kube pods", "alpha dev kube logs [pod]", "alpha dev kube deployments", "alpha dev kube services", "alpha dev kube describe [resource] [name]"},
 	},
 	{
 		ID:          "database",
@@ -302,7 +302,7 @@ var allIntegrations = []Integration{
 		Group:       "dev",
 		Description: "Query, inspect schema, and list tables in SQLite databases",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket dev db query [db-path] [sql]", "pocket dev db schema [db-path]", "pocket dev db tables [db-path]"},
+		Commands:    []string{"alpha dev db query [db-path] [sql]", "alpha dev db schema [db-path]", "alpha dev db tables [db-path]"},
 	},
 
 	// Social - Auth Required
@@ -312,8 +312,8 @@ var allIntegrations = []Integration{
 		Group:       "social",
 		Description: "Post tweets, delete tweets, get account info (free tier: 1,500 posts/month)",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket social twitter post [msg]", "pocket social twitter delete [id]", "pocket social twitter me", "pocket social twitter --reply-to [id] [msg]"},
-		SetupCmd:    "pocket setup show twitter",
+		Commands:    []string{"alpha social twitter post [msg]", "alpha social twitter delete [id]", "alpha social twitter me", "alpha social twitter --reply-to [id] [msg]"},
+		SetupCmd:    "alpha setup show twitter",
 	},
 	{
 		ID:          "reddit",
@@ -321,8 +321,8 @@ var allIntegrations = []Integration{
 		Group:       "social",
 		Description: "Browse feeds, subreddits, search, users, and comments (free tier: 100 req/min)",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket social reddit feed", "pocket social reddit subreddit [name]", "pocket social reddit search [query]", "pocket social reddit user [name]", "pocket social reddit comments [post-id]"},
-		SetupCmd:    "pocket setup show reddit",
+		Commands:    []string{"alpha social reddit feed", "alpha social reddit subreddit [name]", "alpha social reddit search [query]", "alpha social reddit user [name]", "alpha social reddit comments [post-id]"},
+		SetupCmd:    "alpha setup show reddit",
 	},
 	{
 		ID:          "mastodon",
@@ -330,8 +330,8 @@ var allIntegrations = []Integration{
 		Group:       "social",
 		Description: "Fediverse: timelines, posting, and search",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket social mastodon timeline", "pocket social mastodon post [content]", "pocket social mastodon search [query]"},
-		SetupCmd:    "pocket setup show mastodon",
+		Commands:    []string{"alpha social mastodon timeline", "alpha social mastodon post [content]", "alpha social mastodon search [query]"},
+		SetupCmd:    "alpha setup show mastodon",
 	},
 	{
 		ID:          "youtube",
@@ -339,8 +339,8 @@ var allIntegrations = []Integration{
 		Group:       "social",
 		Description: "Search videos, get channel info, video metrics, comments, and trending",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket social youtube search [query]", "pocket social youtube video [id]", "pocket social youtube channel [id]", "pocket social youtube videos [channel-id]", "pocket social youtube comments [video-id]", "pocket social youtube trending"},
-		SetupCmd:    "pocket setup show youtube",
+		Commands:    []string{"alpha social youtube search [query]", "alpha social youtube video [id]", "alpha social youtube channel [id]", "alpha social youtube videos [channel-id]", "alpha social youtube comments [video-id]", "alpha social youtube trending"},
+		SetupCmd:    "alpha setup show youtube",
 	},
 	{
 		ID:          "spotify",
@@ -348,8 +348,8 @@ var allIntegrations = []Integration{
 		Group:       "social",
 		Description: "Search tracks, artists, and albums on Spotify",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket social spotify search [query]", "pocket social spotify track [id]", "pocket social spotify artist [id]", "pocket social spotify album [id]"},
-		SetupCmd:    "pocket setup show spotify",
+		Commands:    []string{"alpha social spotify search [query]", "alpha social spotify track [id]", "alpha social spotify artist [id]", "alpha social spotify album [id]"},
+		SetupCmd:    "alpha setup show spotify",
 	},
 
 	// Communication - Auth Required
@@ -359,8 +359,8 @@ var allIntegrations = []Integration{
 		Group:       "comms",
 		Description: "Read, search, send, and reply to emails via IMAP/SMTP (Gmail, Outlook, Yahoo, etc.)",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket comms email list", "pocket comms email read [uid]", "pocket comms email send [body]", "pocket comms email reply [uid] [body]", "pocket comms email search [query]", "pocket comms email mailboxes"},
-		SetupCmd:    "pocket setup show email",
+		Commands:    []string{"alpha comms email list", "alpha comms email read [uid]", "alpha comms email send [body]", "alpha comms email reply [uid] [body]", "alpha comms email search [query]", "alpha comms email mailboxes"},
+		SetupCmd:    "alpha setup show email",
 	},
 	{
 		ID:          "slack",
@@ -368,8 +368,8 @@ var allIntegrations = []Integration{
 		Group:       "comms",
 		Description: "Channels, messages, users, DMs, and search in Slack workspaces",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket comms slack channels", "pocket comms slack messages [channel]", "pocket comms slack send [channel] [msg]", "pocket comms slack users", "pocket comms slack dm [user] [msg]", "pocket comms slack search [query]"},
-		SetupCmd:    "pocket setup show slack",
+		Commands:    []string{"alpha comms slack channels", "alpha comms slack messages [channel]", "alpha comms slack send [channel] [msg]", "alpha comms slack users", "alpha comms slack dm [user] [msg]", "alpha comms slack search [query]"},
+		SetupCmd:    "alpha setup show slack",
 	},
 	{
 		ID:          "discord",
@@ -377,8 +377,8 @@ var allIntegrations = []Integration{
 		Group:       "comms",
 		Description: "Servers (guilds), channels, messages, and DMs in Discord",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket comms discord guilds", "pocket comms discord channels [guild]", "pocket comms discord messages [channel]", "pocket comms discord send [channel] [msg]", "pocket comms discord dm [user] [msg]"},
-		SetupCmd:    "pocket setup show discord",
+		Commands:    []string{"alpha comms discord guilds", "alpha comms discord channels [guild]", "alpha comms discord messages [channel]", "alpha comms discord send [channel] [msg]", "alpha comms discord dm [user] [msg]"},
+		SetupCmd:    "alpha setup show discord",
 	},
 	{
 		ID:          "telegram",
@@ -386,8 +386,8 @@ var allIntegrations = []Integration{
 		Group:       "comms",
 		Description: "Chats, messages, and forwarding via Telegram bot",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket comms telegram me", "pocket comms telegram chats", "pocket comms telegram updates", "pocket comms telegram send [chat] [msg]", "pocket comms telegram forward [from] [to] [msg-id]"},
-		SetupCmd:    "pocket setup show telegram",
+		Commands:    []string{"alpha comms telegram me", "alpha comms telegram chats", "alpha comms telegram updates", "alpha comms telegram send [chat] [msg]", "alpha comms telegram forward [from] [to] [msg-id]"},
+		SetupCmd:    "alpha setup show telegram",
 	},
 	{
 		ID:          "twilio",
@@ -395,8 +395,8 @@ var allIntegrations = []Integration{
 		Group:       "comms",
 		Description: "Send and manage SMS messages via Twilio",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket comms twilio send [to] [msg]", "pocket comms twilio messages", "pocket comms twilio message [sid]", "pocket comms twilio account"},
-		SetupCmd:    "pocket setup show twilio",
+		Commands:    []string{"alpha comms twilio send [to] [msg]", "alpha comms twilio messages", "alpha comms twilio message [sid]", "alpha comms twilio account"},
+		SetupCmd:    "alpha setup show twilio",
 	},
 	// Communication - No Auth
 	{
@@ -405,7 +405,7 @@ var allIntegrations = []Integration{
 		Group:       "comms",
 		Description: "Send push notifications via ntfy.sh (no auth) or Pushover (auth)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket comms notify ntfy [topic] [msg]", "pocket comms notify pushover [msg]"},
+		Commands:    []string{"alpha comms notify ntfy [topic] [msg]", "alpha comms notify pushover [msg]"},
 	},
 	{
 		ID:          "webhook",
@@ -413,7 +413,7 @@ var allIntegrations = []Integration{
 		Group:       "comms",
 		Description: "Send data to webhooks (generic, Slack, Discord)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket comms webhook send [url] [data]", "pocket comms webhook slack [url] [msg]", "pocket comms webhook discord [url] [msg]"},
+		Commands:    []string{"alpha comms webhook send [url] [data]", "alpha comms webhook slack [url] [msg]", "alpha comms webhook discord [url] [msg]"},
 	},
 
 	// Productivity - Auth Required
@@ -423,8 +423,8 @@ var allIntegrations = []Integration{
 		Group:       "productivity",
 		Description: "View and create calendar events",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket productivity calendar events", "pocket productivity calendar today", "pocket productivity calendar create"},
-		SetupCmd:    "pocket setup show calendar",
+		Commands:    []string{"alpha productivity calendar events", "alpha productivity calendar today", "alpha productivity calendar create"},
+		SetupCmd:    "alpha setup show calendar",
 	},
 	{
 		ID:          "notion",
@@ -432,8 +432,8 @@ var allIntegrations = []Integration{
 		Group:       "productivity",
 		Description: "Search pages and query databases in Notion",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket productivity notion search [query]", "pocket productivity notion page [id]", "pocket productivity notion database [id]"},
-		SetupCmd:    "pocket setup show notion",
+		Commands:    []string{"alpha productivity notion search [query]", "alpha productivity notion page [id]", "alpha productivity notion database [id]"},
+		SetupCmd:    "alpha setup show notion",
 	},
 	{
 		ID:          "todoist",
@@ -441,8 +441,8 @@ var allIntegrations = []Integration{
 		Group:       "productivity",
 		Description: "Tasks and projects in Todoist",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket productivity todoist tasks", "pocket productivity todoist projects", "pocket productivity todoist add [task]", "pocket productivity todoist complete [id]"},
-		SetupCmd:    "pocket setup show todoist",
+		Commands:    []string{"alpha productivity todoist tasks", "alpha productivity todoist projects", "alpha productivity todoist add [task]", "alpha productivity todoist complete [id]"},
+		SetupCmd:    "alpha setup show todoist",
 	},
 	{
 		ID:          "trello",
@@ -450,8 +450,8 @@ var allIntegrations = []Integration{
 		Group:       "productivity",
 		Description: "Boards, lists, and cards in Trello",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket productivity trello boards", "pocket productivity trello board [id]", "pocket productivity trello cards [board-id]", "pocket productivity trello card [id]", "pocket productivity trello create [name]"},
-		SetupCmd:    "pocket setup show trello",
+		Commands:    []string{"alpha productivity trello boards", "alpha productivity trello board [id]", "alpha productivity trello cards [board-id]", "alpha productivity trello card [id]", "alpha productivity trello create [name]"},
+		SetupCmd:    "alpha setup show trello",
 	},
 	// Productivity - Local (Path Required)
 	{
@@ -460,8 +460,8 @@ var allIntegrations = []Integration{
 		Group:       "productivity",
 		Description: "Local Logseq graphs - read/write pages, search, journals",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket productivity logseq graphs", "pocket productivity logseq pages", "pocket productivity logseq read [page]", "pocket productivity logseq write [page] [content]", "pocket productivity logseq search [query]", "pocket productivity logseq journal", "pocket productivity logseq recent"},
-		SetupCmd:    "pocket setup show logseq",
+		Commands:    []string{"alpha productivity logseq graphs", "alpha productivity logseq pages", "alpha productivity logseq read [page]", "alpha productivity logseq write [page] [content]", "alpha productivity logseq search [query]", "alpha productivity logseq journal", "alpha productivity logseq recent"},
+		SetupCmd:    "alpha setup show logseq",
 	},
 
 	// Productivity - Local (Path Required)
@@ -471,8 +471,8 @@ var allIntegrations = []Integration{
 		Group:       "productivity",
 		Description: "Local Obsidian vaults - read/write notes, search, daily notes",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket productivity obsidian vaults", "pocket productivity obsidian notes", "pocket productivity obsidian read [note]", "pocket productivity obsidian write [note] [content]", "pocket productivity obsidian search [query]", "pocket productivity obsidian daily", "pocket productivity obsidian recent"},
-		SetupCmd:    "pocket setup show obsidian",
+		Commands:    []string{"alpha productivity obsidian vaults", "alpha productivity obsidian notes", "alpha productivity obsidian read [note]", "alpha productivity obsidian write [note] [content]", "alpha productivity obsidian search [query]", "alpha productivity obsidian daily", "alpha productivity obsidian recent"},
+		SetupCmd:    "alpha setup show obsidian",
 	},
 
 	// Marketing - Auth Required
@@ -482,8 +482,8 @@ var allIntegrations = []Integration{
 		Group:       "marketing",
 		Description: "Manage Facebook/Meta ad campaigns, ad sets, ads, and view performance insights",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket marketing facebook-ads account", "pocket marketing facebook-ads campaigns", "pocket marketing facebook-ads campaign-create", "pocket marketing facebook-ads adsets", "pocket marketing facebook-ads ads", "pocket marketing facebook-ads insights"},
-		SetupCmd:    "pocket setup show facebook-ads",
+		Commands:    []string{"alpha marketing facebook-ads account", "alpha marketing facebook-ads campaigns", "alpha marketing facebook-ads campaign-create", "alpha marketing facebook-ads adsets", "alpha marketing facebook-ads ads", "alpha marketing facebook-ads insights"},
+		SetupCmd:    "alpha setup show facebook-ads",
 	},
 	{
 		ID:          "amazon-sp",
@@ -491,8 +491,8 @@ var allIntegrations = []Integration{
 		Group:       "marketing",
 		Description: "Manage Amazon seller orders, inventory, and reports via SP-API",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket marketing amazon-sp orders", "pocket marketing amazon-sp order [id]", "pocket marketing amazon-sp order-items [id]", "pocket marketing amazon-sp inventory", "pocket marketing amazon-sp report-create", "pocket marketing amazon-sp report-status [id]"},
-		SetupCmd:    "pocket setup show amazon-sp",
+		Commands:    []string{"alpha marketing amazon-sp orders", "alpha marketing amazon-sp order [id]", "alpha marketing amazon-sp order-items [id]", "alpha marketing amazon-sp inventory", "alpha marketing amazon-sp report-create", "alpha marketing amazon-sp report-status [id]"},
+		SetupCmd:    "alpha setup show amazon-sp",
 	},
 	{
 		ID:          "shopify",
@@ -500,8 +500,8 @@ var allIntegrations = []Integration{
 		Group:       "marketing",
 		Description: "Manage Shopify store: orders, products, customers, and inventory",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket marketing shopify shop", "pocket marketing shopify orders", "pocket marketing shopify order [id]", "pocket marketing shopify products", "pocket marketing shopify product [id]", "pocket marketing shopify customers", "pocket marketing shopify customer-search [query]", "pocket marketing shopify inventory", "pocket marketing shopify inventory-set"},
-		SetupCmd:    "pocket setup show shopify",
+		Commands:    []string{"alpha marketing shopify shop", "alpha marketing shopify orders", "alpha marketing shopify order [id]", "alpha marketing shopify products", "alpha marketing shopify product [id]", "alpha marketing shopify customers", "alpha marketing shopify customer-search [query]", "alpha marketing shopify inventory", "alpha marketing shopify inventory-set"},
+		SetupCmd:    "alpha setup show shopify",
 	},
 
 	// System - macOS Only (No Auth)
@@ -511,7 +511,7 @@ var allIntegrations = []Integration{
 		Group:       "system",
 		Description: "Manage Apple Reminders via AppleScript (macOS only)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket system reminders lists", "pocket system reminders list [name]", "pocket system reminders add [title]", "pocket system reminders complete [id]", "pocket system reminders delete [id]", "pocket system reminders today", "pocket system reminders overdue"},
+		Commands:    []string{"alpha system reminders lists", "alpha system reminders list [name]", "alpha system reminders add [title]", "alpha system reminders complete [id]", "alpha system reminders delete [id]", "alpha system reminders today", "alpha system reminders overdue"},
 	},
 	{
 		ID:          "notes",
@@ -519,7 +519,7 @@ var allIntegrations = []Integration{
 		Group:       "system",
 		Description: "Read and manage Apple Notes via AppleScript (macOS only)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket system notes folders", "pocket system notes list", "pocket system notes read [name]", "pocket system notes search [query]", "pocket system notes create [name] [body]", "pocket system notes append [name] [text]"},
+		Commands:    []string{"alpha system notes folders", "alpha system notes list", "alpha system notes read [name]", "alpha system notes search [query]", "alpha system notes create [name] [body]", "alpha system notes append [name] [text]"},
 	},
 	{
 		ID:          "apple-calendar",
@@ -527,7 +527,7 @@ var allIntegrations = []Integration{
 		Group:       "system",
 		Description: "Manage Apple Calendar events via AppleScript (macOS only)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket system apple-calendar calendars", "pocket system apple-calendar today", "pocket system apple-calendar events", "pocket system apple-calendar event [title]", "pocket system apple-calendar create [title]", "pocket system apple-calendar upcoming", "pocket system apple-calendar week"},
+		Commands:    []string{"alpha system apple-calendar calendars", "alpha system apple-calendar today", "alpha system apple-calendar events", "alpha system apple-calendar event [title]", "alpha system apple-calendar create [title]", "alpha system apple-calendar upcoming", "alpha system apple-calendar week"},
 	},
 	{
 		ID:          "contacts",
@@ -535,7 +535,7 @@ var allIntegrations = []Integration{
 		Group:       "system",
 		Description: "Search and manage Apple Contacts via AppleScript (macOS only)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket system contacts list", "pocket system contacts search [query]", "pocket system contacts get [name]", "pocket system contacts groups", "pocket system contacts group [name]", "pocket system contacts create [name]"},
+		Commands:    []string{"alpha system contacts list", "alpha system contacts search [query]", "alpha system contacts get [name]", "alpha system contacts groups", "alpha system contacts group [name]", "alpha system contacts create [name]"},
 	},
 	{
 		ID:          "finder",
@@ -543,7 +543,7 @@ var allIntegrations = []Integration{
 		Group:       "system",
 		Description: "Finder operations, file info, tags, Spotlight search (macOS only)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket system finder open [path]", "pocket system finder reveal [path]", "pocket system finder info [path]", "pocket system finder list [path]", "pocket system finder tags [path]", "pocket system finder tag [path] [tag]", "pocket system finder trash [path]", "pocket system finder search [query]"},
+		Commands:    []string{"alpha system finder open [path]", "alpha system finder reveal [path]", "alpha system finder info [path]", "alpha system finder list [path]", "alpha system finder tags [path]", "alpha system finder tag [path] [tag]", "alpha system finder trash [path]", "alpha system finder search [query]"},
 	},
 	{
 		ID:          "safari",
@@ -551,7 +551,7 @@ var allIntegrations = []Integration{
 		Group:       "system",
 		Description: "Safari tabs, bookmarks, reading list, history (macOS only)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket system safari tabs", "pocket system safari url", "pocket system safari open [url]", "pocket system safari bookmarks", "pocket system safari reading-list", "pocket system safari add-reading [url]", "pocket system safari history"},
+		Commands:    []string{"alpha system safari tabs", "alpha system safari url", "alpha system safari open [url]", "alpha system safari bookmarks", "alpha system safari reading-list", "alpha system safari add-reading [url]", "alpha system safari history"},
 	},
 	{
 		ID:          "clipboard",
@@ -559,7 +559,7 @@ var allIntegrations = []Integration{
 		Group:       "system",
 		Description: "Get/set macOS clipboard content (macOS only)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket system clipboard get", "pocket system clipboard set [text]", "pocket system clipboard clear", "pocket system clipboard copy [file]"},
+		Commands:    []string{"alpha system clipboard get", "alpha system clipboard set [text]", "alpha system clipboard clear", "alpha system clipboard copy [file]"},
 	},
 	{
 		ID:          "imessage",
@@ -567,7 +567,7 @@ var allIntegrations = []Integration{
 		Group:       "system",
 		Description: "Send and read iMessages via Messages.app (macOS only)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket system imessage send [recipient] [message]", "pocket system imessage chats", "pocket system imessage read [contact]", "pocket system imessage search [query]", "pocket system imessage unread"},
+		Commands:    []string{"alpha system imessage send [recipient] [message]", "alpha system imessage chats", "alpha system imessage read [contact]", "alpha system imessage search [query]", "alpha system imessage unread"},
 	},
 	{
 		ID:          "apple-mail",
@@ -575,7 +575,7 @@ var allIntegrations = []Integration{
 		Group:       "system",
 		Description: "Read and send emails via Apple Mail (macOS only)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket system mail accounts", "pocket system mail mailboxes", "pocket system mail list", "pocket system mail read [id]", "pocket system mail search [query]", "pocket system mail send", "pocket system mail unread", "pocket system mail count"},
+		Commands:    []string{"alpha system mail accounts", "alpha system mail mailboxes", "alpha system mail list", "alpha system mail read [id]", "alpha system mail search [query]", "alpha system mail send", "alpha system mail unread", "alpha system mail count"},
 	},
 
 	// Security - Auth Required
@@ -585,8 +585,8 @@ var allIntegrations = []Integration{
 		Group:       "security",
 		Description: "Scan URLs, domains, IPs, and file hashes for threats via VirusTotal",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket security virustotal url [url]", "pocket security virustotal domain [domain]", "pocket security virustotal ip [ip]", "pocket security virustotal hash [hash]"},
-		SetupCmd:    "pocket setup show virustotal",
+		Commands:    []string{"alpha security virustotal url [url]", "alpha security virustotal domain [domain]", "alpha security virustotal ip [ip]", "alpha security virustotal hash [hash]"},
+		SetupCmd:    "alpha setup show virustotal",
 	},
 	// Security - No Auth
 	{
@@ -595,7 +595,7 @@ var allIntegrations = []Integration{
 		Group:       "security",
 		Description: "IP lookup for open ports and vulnerabilities via Shodan",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket security shodan lookup [ip]"},
+		Commands:    []string{"alpha security shodan lookup [ip]"},
 	},
 	{
 		ID:          "crtsh",
@@ -603,7 +603,7 @@ var allIntegrations = []Integration{
 		Group:       "security",
 		Description: "Certificate transparency log lookups via crt.sh",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket security crtsh lookup [domain]"},
+		Commands:    []string{"alpha security crtsh lookup [domain]"},
 	},
 	{
 		ID:          "hibp",
@@ -611,27 +611,27 @@ var allIntegrations = []Integration{
 		Group:       "security",
 		Description: "Check passwords against breaches and list public data breaches",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket security hibp password [password]", "pocket security hibp breaches"},
+		Commands:    []string{"alpha security hibp password [password]", "alpha security hibp breaches"},
 	},
 
-	// Productivity - Auth Required (Google API)
+	// Productivity - Auth Required (Google OAuth)
 	{
 		ID:          "gdrive",
 		Name:        "Google Drive",
 		Group:       "productivity",
-		Description: "Search and get file metadata from Google Drive",
+		Description: "Full read/write access to Google Drive: search, read, upload, download, create folders, update, and delete files",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket productivity gdrive search [query]", "pocket productivity gdrive info [file-id]"},
-		SetupCmd:    "pocket setup show google-api",
+		Commands:    []string{"alpha productivity gdrive search [query]", "alpha productivity gdrive info [file-id]", "alpha productivity gdrive list", "alpha productivity gdrive read [file-id]", "alpha productivity gdrive download [file-id]", "alpha productivity gdrive upload [path]", "alpha productivity gdrive mkdir [name]", "alpha productivity gdrive update [file-id]", "alpha productivity gdrive delete [file-id]"},
+		SetupCmd:    "alpha setup show google-oauth",
 	},
 	{
 		ID:          "gsheets",
 		Name:        "Google Sheets",
 		Group:       "productivity",
-		Description: "Read spreadsheets and search cell values in Google Sheets",
+		Description: "Full read/write access to Google Sheets: read, write, append, search, clear, and create spreadsheets",
 		AuthNeeded:  true,
-		Commands:    []string{"pocket productivity gsheets get [spreadsheet-id]", "pocket productivity gsheets read [spreadsheet-id] [range]", "pocket productivity gsheets search [spreadsheet-id] [query]"},
-		SetupCmd:    "pocket setup show google-api",
+		Commands:    []string{"alpha productivity gsheets get [spreadsheet-id]", "alpha productivity gsheets read [spreadsheet-id] [range]", "alpha productivity gsheets search [spreadsheet-id] [query]", "alpha productivity gsheets write [spreadsheet-id] [range] [values]", "alpha productivity gsheets append [spreadsheet-id] [range] [values]", "alpha productivity gsheets clear [spreadsheet-id] [range]", "alpha productivity gsheets create --title [name]"},
+		SetupCmd:    "alpha setup show google-oauth",
 	},
 
 	// Utility - No Auth (additional)
@@ -641,7 +641,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Forward and reverse geocoding (address to coordinates and back)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility geocode forward [address]", "pocket utility geocode reverse [lat] [lon]"},
+		Commands:    []string{"alpha utility geocode forward [address]", "alpha utility geocode reverse [lat] [lon]"},
 	},
 	{
 		ID:          "timezone",
@@ -649,7 +649,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Get time in timezones, lookup timezone by IP, list all timezones",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility timezone get [timezone]", "pocket utility timezone ip [ip]", "pocket utility timezone list"},
+		Commands:    []string{"alpha utility timezone get [timezone]", "alpha utility timezone ip [ip]", "alpha utility timezone list"},
 	},
 	{
 		ID:          "paste",
@@ -657,7 +657,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "Create and fetch text pastes (pastebin-like)",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility paste create [content]", "pocket utility paste get [url]"},
+		Commands:    []string{"alpha utility paste create [content]", "alpha utility paste get [url]"},
 	},
 	{
 		ID:          "netdiag",
@@ -665,7 +665,7 @@ var allIntegrations = []Integration{
 		Group:       "utility",
 		Description: "HTTP headers, port scanning, and DNS/ping diagnostics",
 		AuthNeeded:  false,
-		Commands:    []string{"pocket utility netdiag headers [url]", "pocket utility netdiag ports [host]", "pocket utility netdiag ping [host]"},
+		Commands:    []string{"alpha utility netdiag headers [url]", "alpha utility netdiag ports [host]", "alpha utility netdiag ping [host]"},
 	},
 }
 
@@ -864,7 +864,10 @@ func getIntegrationStatus(integ Integration) string {
 			return statusReady
 		}
 	case "calendar":
-		if v, _ := config.Get("google_cred_path"); v != "" {
+		cid, _ := config.Get("google_client_id")
+		secret, _ := config.Get("google_client_secret")
+		refresh, _ := config.Get("google_refresh_token")
+		if cid != "" && secret != "" && refresh != "" {
 			return statusReady
 		}
 	case "notion":
@@ -961,11 +964,17 @@ func getIntegrationStatus(integ Integration) string {
 			return statusReady
 		}
 	case "gdrive":
-		if v, _ := config.Get("google_api_key"); v != "" {
+		cid, _ := config.Get("google_client_id")
+		secret, _ := config.Get("google_client_secret")
+		refresh, _ := config.Get("google_refresh_token")
+		if cid != "" && secret != "" && refresh != "" {
 			return statusReady
 		}
 	case "gsheets":
-		if v, _ := config.Get("google_api_key"); v != "" {
+		cid, _ := config.Get("google_client_id")
+		secret, _ := config.Get("google_client_secret")
+		refresh, _ := config.Get("google_refresh_token")
+		if cid != "" && secret != "" && refresh != "" {
 			return statusReady
 		}
 	}

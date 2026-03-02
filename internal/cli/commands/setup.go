@@ -46,8 +46,8 @@ var services = map[string]ServiceInfo{
 				Example:     "ghp_xxxxxxxxxxxxxxxxxxxx",
 			},
 		},
-		SetupGuide:  "1. Go to https://github.com/settings/tokens\n2. Click 'Generate new token (classic)'\n3. Select scopes: repo, read:org, notifications\n4. Generate and copy the token\n5. Run: pocket config set github_token <your-token>",
-		TestCommand: "pocket dev github repos -l 1",
+		SetupGuide:  "1. Go to https://github.com/settings/tokens\n2. Click 'Generate new token (classic)'\n3. Select scopes: repo, read:org, notifications\n4. Generate and copy the token\n5. Run: alpha config set github_token <your-token>",
+		TestCommand: "alpha dev github repos -l 1",
 	},
 	"gitlab": {
 		Service: "gitlab",
@@ -60,8 +60,8 @@ var services = map[string]ServiceInfo{
 				Example:     "glpat-xxxxxxxxxxxxxxxxxxxx",
 			},
 		},
-		SetupGuide:  "1. Go to https://gitlab.com/-/user_settings/personal_access_tokens\n2. Create token with 'api' scope\n3. Copy the token\n4. Run: pocket config set gitlab_token <your-token>",
-		TestCommand: "pocket dev gitlab projects -l 1",
+		SetupGuide:  "1. Go to https://gitlab.com/-/user_settings/personal_access_tokens\n2. Create token with 'api' scope\n3. Copy the token\n4. Run: alpha config set gitlab_token <your-token>",
+		TestCommand: "alpha dev gitlab projects -l 1",
 	},
 	"twitter": {
 		Service: "twitter",
@@ -69,8 +69,8 @@ var services = map[string]ServiceInfo{
 		Keys: []KeyInfo{
 			{Key: "x_client_id", Description: "OAuth 2.0 Client ID", Required: true},
 		},
-		SetupGuide:  "1. Go to https://developer.x.com/en/portal/dashboard\n2. Create a project and app (Free tier works)\n3. Enable OAuth 2.0, select 'Native App' type\n4. Set callback URL to http://127.0.0.1:8765/callback\n5. Copy the Client ID\n6. Run: pocket config set x_client_id <client-id>\n7. Run: pocket social twitter auth\n\nNote: Free tier allows posting tweets. Reading requires paid tier ($200/mo).",
-		TestCommand: "pocket social twitter me",
+		SetupGuide:  "1. Go to https://developer.x.com/en/portal/dashboard\n2. Create a project and app (Free tier works)\n3. Enable OAuth 2.0, select 'Native App' type\n4. Set callback URL to http://127.0.0.1:8765/callback\n5. Copy the Client ID\n6. Run: alpha config set x_client_id <client-id>\n7. Run: alpha social twitter auth\n\nNote: Free tier allows posting tweets. Reading requires paid tier ($200/mo).",
+		TestCommand: "alpha social twitter me",
 	},
 	"reddit": {
 		Service: "reddit",
@@ -78,8 +78,8 @@ var services = map[string]ServiceInfo{
 		Keys: []KeyInfo{
 			{Key: "reddit_client_id", Description: "OAuth Client ID (installed app)", Required: true},
 		},
-		SetupGuide:  "1. Go to https://www.reddit.com/prefs/apps\n2. Click 'create another app' at the bottom\n3. Select 'installed app' type, name it\n4. Set redirect URI to http://localhost:8766/callback\n5. Copy the client ID (shown under app name)\n6. Run: pocket config set reddit_client_id <id>\n7. Run: pocket social reddit auth\n\nNote: Free tier allows 100 req/min for non-commercial use.",
-		TestCommand: "pocket social reddit feed -l 1",
+		SetupGuide:  "1. Go to https://www.reddit.com/prefs/apps\n2. Click 'create another app' at the bottom\n3. Select 'installed app' type, name it\n4. Set redirect URI to http://localhost:8766/callback\n5. Copy the client ID (shown under app name)\n6. Run: alpha config set reddit_client_id <id>\n7. Run: alpha social reddit auth\n\nNote: Free tier allows 100 req/min for non-commercial use.",
+		TestCommand: "alpha social reddit feed -l 1",
 	},
 	"slack": {
 		Service: "slack",
@@ -87,8 +87,8 @@ var services = map[string]ServiceInfo{
 		Keys: []KeyInfo{
 			{Key: "slack_token", Description: "Bot or User OAuth Token (xoxb-* or xoxp-*)", Required: true, Example: "xoxb-xxxx-xxxx-xxxx"},
 		},
-		SetupGuide:  "1. Go to https://api.slack.com/apps\n2. Create an app or select existing\n3. Go to OAuth & Permissions\n4. Add scopes: channels:read, chat:write, users:read\n5. Install to workspace and copy Bot Token\n6. Run: pocket config set slack_token <token>",
-		TestCommand: "pocket comms slack channels",
+		SetupGuide:  "1. Go to https://api.slack.com/apps\n2. Create an app or select existing\n3. Go to OAuth & Permissions\n4. Add scopes: channels:read, chat:write, users:read\n5. Install to workspace and copy Bot Token\n6. Run: alpha config set slack_token <token>",
+		TestCommand: "alpha comms slack channels",
 	},
 	"discord": {
 		Service: "discord",
@@ -96,8 +96,8 @@ var services = map[string]ServiceInfo{
 		Keys: []KeyInfo{
 			{Key: "discord_token", Description: "Bot token", Required: true},
 		},
-		SetupGuide:  "1. Go to https://discord.com/developers/applications\n2. Create application, then create Bot\n3. Copy the bot token\n4. Run: pocket config set discord_token <token>",
-		TestCommand: "pocket comms discord guilds",
+		SetupGuide:  "1. Go to https://discord.com/developers/applications\n2. Create application, then create Bot\n3. Copy the bot token\n4. Run: alpha config set discord_token <token>",
+		TestCommand: "alpha comms discord guilds",
 	},
 	"telegram": {
 		Service: "telegram",
@@ -105,8 +105,8 @@ var services = map[string]ServiceInfo{
 		Keys: []KeyInfo{
 			{Key: "telegram_token", Description: "Bot token from @BotFather", Required: true, Example: "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"},
 		},
-		SetupGuide:  "1. Message @BotFather on Telegram\n2. Send /newbot and follow instructions\n3. Copy the token provided\n4. Run: pocket config set telegram_token <token>",
-		TestCommand: "pocket comms telegram chats",
+		SetupGuide:  "1. Message @BotFather on Telegram\n2. Send /newbot and follow instructions\n3. Copy the token provided\n4. Run: alpha config set telegram_token <token>",
+		TestCommand: "alpha comms telegram chats",
 	},
 	"twilio": {
 		Service: "twilio",
@@ -121,13 +121,13 @@ var services = map[string]ServiceInfo{
 3. Copy your Account SID and Auth Token from the dashboard
 4. Get a phone number from the Phone Numbers section
 5. Run these commands:
-   pocket config set twilio_sid <your-account-sid>
-   pocket config set twilio_token <your-auth-token>
-   pocket config set twilio_phone <your-twilio-phone-number>
+   alpha config set twilio_sid <your-account-sid>
+   alpha config set twilio_token <your-auth-token>
+   alpha config set twilio_phone <your-twilio-phone-number>
 
 Note: Phone numbers must be in E.164 format (e.g., +15551234567)
 Free trial accounts can only send to verified phone numbers.`,
-		TestCommand: "pocket comms twilio account",
+		TestCommand: "alpha comms twilio account",
 	},
 	"email": {
 		Service: "email",
@@ -145,19 +145,19 @@ Free trial accounts can only send to verified phone numbers.`,
 2. Go to https://myaccount.google.com/apppasswords
 3. Create an app password (select 'Mail' and your device)
 4. Run these commands:
-   pocket config set email_address your@gmail.com
-   pocket config set email_password "xxxx xxxx xxxx xxxx"
-   pocket config set imap_server imap.gmail.com
-   pocket config set smtp_server smtp.gmail.com
+   alpha config set email_address your@gmail.com
+   alpha config set email_password "xxxx xxxx xxxx xxxx"
+   alpha config set imap_server imap.gmail.com
+   alpha config set smtp_server smtp.gmail.com
 
 For Outlook/Hotmail:
-   pocket config set imap_server outlook.office365.com
-   pocket config set smtp_server smtp.office365.com
+   alpha config set imap_server outlook.office365.com
+   alpha config set smtp_server smtp.office365.com
 
 For Yahoo:
-   pocket config set imap_server imap.mail.yahoo.com
-   pocket config set smtp_server smtp.mail.yahoo.com`,
-		TestCommand: "pocket comms email list -l 1",
+   alpha config set imap_server imap.mail.yahoo.com
+   alpha config set smtp_server smtp.mail.yahoo.com`,
+		TestCommand: "alpha comms email list -l 1",
 	},
 	"calendar": {
 		Service: "calendar",
@@ -167,25 +167,19 @@ For Yahoo:
 			{Key: "google_client_secret", Description: "OAuth 2.0 Client Secret", Required: true},
 			{Key: "google_refresh_token", Description: "OAuth 2.0 Refresh Token", Required: true},
 		},
-		SetupGuide: `1. Go to https://console.cloud.google.com/
-2. Create a new project (or select existing)
-3. Enable "Google Calendar API" at:
-   https://console.cloud.google.com/apis/library/calendar-json.googleapis.com
-4. Go to Credentials > Create Credentials > OAuth client ID
-5. Select "Desktop app" as application type
-6. Copy Client ID and Client Secret
-7. Get a refresh token using OAuth Playground:
-   a. Go to https://developers.google.com/oauthplayground/
-   b. Click gear icon, check "Use your own OAuth credentials"
-   c. Enter your Client ID and Client Secret
-   d. In Step 1, select "Google Calendar API v3" scopes
-   e. Authorize and exchange for tokens
-   f. Copy the Refresh Token from Step 2
-8. Run:
-   pocket config set google_client_id <your-client-id>
-   pocket config set google_client_secret <your-client-secret>
-   pocket config set google_refresh_token <your-refresh-token>`,
-		TestCommand: "pocket productivity calendar today",
+		SetupGuide: `Google Calendar shares OAuth credentials with Drive and Sheets.
+See: alpha setup show google-oauth
+
+If you only need Calendar:
+1. Go to https://console.cloud.google.com/
+2. Enable "Google Calendar API"
+3. Create OAuth Desktop credentials
+4. Get a refresh token via OAuth Playground with Calendar scopes
+5. Run:
+   alpha config set google_client_id <your-client-id>
+   alpha config set google_client_secret <your-client-secret>
+   alpha config set google_refresh_token <your-refresh-token>`,
+		TestCommand: "alpha productivity calendar today",
 	},
 	"notion": {
 		Service: "notion",
@@ -193,8 +187,8 @@ For Yahoo:
 		Keys: []KeyInfo{
 			{Key: "notion_token", Description: "Internal integration token", Required: true, Example: "ntn_xxxx"},
 		},
-		SetupGuide:  "1. Go to https://www.notion.so/my-integrations\n2. Create new integration\n3. Copy the Internal Integration Token\n4. Share your pages/databases with the integration\n5. Run: pocket config set notion_token <token>",
-		TestCommand: "pocket productivity notion search test",
+		SetupGuide:  "1. Go to https://www.notion.so/my-integrations\n2. Create new integration\n3. Copy the Internal Integration Token\n4. Share your pages/databases with the integration\n5. Run: alpha config set notion_token <token>",
+		TestCommand: "alpha productivity notion search test",
 	},
 	"todoist": {
 		Service: "todoist",
@@ -202,8 +196,8 @@ For Yahoo:
 		Keys: []KeyInfo{
 			{Key: "todoist_token", Description: "API token", Required: true},
 		},
-		SetupGuide:  "1. Go to https://todoist.com/app/settings/integrations/developer\n2. Copy your API token\n3. Run: pocket config set todoist_token <token>",
-		TestCommand: "pocket productivity todoist projects",
+		SetupGuide:  "1. Go to https://todoist.com/app/settings/integrations/developer\n2. Copy your API token\n3. Run: alpha config set todoist_token <token>",
+		TestCommand: "alpha productivity todoist projects",
 	},
 	"linear": {
 		Service: "linear",
@@ -211,8 +205,8 @@ For Yahoo:
 		Keys: []KeyInfo{
 			{Key: "linear_token", Description: "Personal API key", Required: true, Example: "lin_api_xxxx"},
 		},
-		SetupGuide:  "1. Go to https://linear.app/settings/api\n2. Create a personal API key\n3. Copy the key\n4. Run: pocket config set linear_token <token>",
-		TestCommand: "pocket dev linear teams",
+		SetupGuide:  "1. Go to https://linear.app/settings/api\n2. Create a personal API key\n3. Copy the key\n4. Run: alpha config set linear_token <token>",
+		TestCommand: "alpha dev linear teams",
 	},
 	"newsapi": {
 		Service: "newsapi",
@@ -220,8 +214,8 @@ For Yahoo:
 		Keys: []KeyInfo{
 			{Key: "newsapi_key", Description: "API key", Required: true},
 		},
-		SetupGuide:  "1. Go to https://newsapi.org/register\n2. Register for free account\n3. Copy your API key\n4. Run: pocket config set newsapi_key <key>",
-		TestCommand: "pocket news newsapi headlines -l 1",
+		SetupGuide:  "1. Go to https://newsapi.org/register\n2. Register for free account\n3. Copy your API key\n4. Run: alpha config set newsapi_key <key>",
+		TestCommand: "alpha news newsapi headlines -l 1",
 	},
 	"mastodon": {
 		Service: "mastodon",
@@ -230,8 +224,8 @@ For Yahoo:
 			{Key: "mastodon_server", Description: "Server URL (e.g., mastodon.social)", Required: true, Example: "mastodon.social"},
 			{Key: "mastodon_token", Description: "Access token", Required: true},
 		},
-		SetupGuide:  "1. Go to your Mastodon instance's settings\n2. Development > New Application\n3. Create app with read/write scopes\n4. Copy the access token\n5. Run:\n   pocket config set mastodon_server <server>\n   pocket config set mastodon_token <token>",
-		TestCommand: "pocket social mastodon timeline -l 1",
+		SetupGuide:  "1. Go to your Mastodon instance's settings\n2. Development > New Application\n3. Create app with read/write scopes\n4. Copy the access token\n5. Run:\n   alpha config set mastodon_server <server>\n   alpha config set mastodon_token <token>",
+		TestCommand: "alpha social mastodon timeline -l 1",
 	},
 	"youtube": {
 		Service: "youtube",
@@ -246,10 +240,10 @@ For Yahoo:
 4. Go to Credentials > Create Credentials > API Key
 5. (Optional) Restrict key to YouTube Data API v3
 6. Copy the API key
-7. Run: pocket config set youtube_api_key <your-api-key>
+7. Run: alpha config set youtube_api_key <your-api-key>
 
 Note: Free tier allows ~10,000 units/day (search=100, video=1, channel=1)`,
-		TestCommand: "pocket social youtube trending -l 1",
+		TestCommand: "alpha social youtube trending -l 1",
 	},
 	"alphavantage": {
 		Service: "alphavantage",
@@ -260,10 +254,10 @@ Note: Free tier allows ~10,000 units/day (search=100, video=1, channel=1)`,
 		SetupGuide: `1. Go to https://www.alphavantage.co/support/#api-key
 2. Enter your email to get a free API key
 3. Copy the API key from email
-4. Run: pocket config set alphavantage_key <your-api-key>
+4. Run: alpha config set alphavantage_key <your-api-key>
 
 Note: Free tier allows 25 requests/day, 5/min`,
-		TestCommand: "pocket utility stocks quote AAPL",
+		TestCommand: "alpha utility stocks quote AAPL",
 	},
 	"jira": {
 		Service: "jira",
@@ -278,10 +272,10 @@ Note: Free tier allows 25 requests/day, 5/min`,
 3. Give it a label and create
 4. Copy the token
 5. Run these commands:
-   pocket config set jira_url https://yourcompany.atlassian.net
-   pocket config set jira_email your@email.com
-   pocket config set jira_token <your-api-token>`,
-		TestCommand: "pocket dev jira projects",
+   alpha config set jira_url https://yourcompany.atlassian.net
+   alpha config set jira_email your@email.com
+   alpha config set jira_token <your-api-token>`,
+		TestCommand: "alpha dev jira projects",
 	},
 	"cloudflare": {
 		Service: "cloudflare",
@@ -294,8 +288,8 @@ Note: Free tier allows 25 requests/day, 5/min`,
 3. Use template "Edit zone DNS" or create custom with:
    - Zone:DNS:Edit, Zone:Zone:Read permissions
 4. Copy the token
-5. Run: pocket config set cloudflare_token <your-token>`,
-		TestCommand: "pocket dev cloudflare zones",
+5. Run: alpha config set cloudflare_token <your-token>`,
+		TestCommand: "alpha dev cloudflare zones",
 	},
 	"vercel": {
 		Service: "vercel",
@@ -307,8 +301,8 @@ Note: Free tier allows 25 requests/day, 5/min`,
 2. Click "Create"
 3. Give it a name and set expiration
 4. Copy the token
-5. Run: pocket config set vercel_token <your-token>`,
-		TestCommand: "pocket dev vercel projects",
+5. Run: alpha config set vercel_token <your-token>`,
+		TestCommand: "alpha dev vercel projects",
 	},
 	"trello": {
 		Service: "trello",
@@ -323,9 +317,9 @@ Note: Free tier allows 25 requests/day, 5/min`,
 4. Click "Token" link next to the key to generate a token
 5. Authorize and copy the token
 6. Run:
-   pocket config set trello_key <your-api-key>
-   pocket config set trello_token <your-token>`,
-		TestCommand: "pocket productivity trello boards",
+   alpha config set trello_key <your-api-key>
+   alpha config set trello_token <your-token>`,
+		TestCommand: "alpha productivity trello boards",
 	},
 	"pushover": {
 		Service: "pushover",
@@ -340,12 +334,12 @@ Note: Free tier allows 25 requests/day, 5/min`,
 4. Create an Application at https://pushover.net/apps/build
 5. Copy the Application API Token
 6. Run:
-   pocket config set pushover_token <your-app-token>
-   pocket config set pushover_user <your-user-key>
+   alpha config set pushover_token <your-app-token>
+   alpha config set pushover_user <your-user-key>
 
 Note: Pushover has a one-time $5 purchase for each platform.
-After setup, use: pocket comms notify pushover "Your message"`,
-		TestCommand: "pocket comms notify pushover 'Test notification from Pocket CLI'",
+After setup, use: alpha comms notify pushover "Your message"`,
+		TestCommand: "alpha comms notify pushover 'Test notification from Alpha CLI'",
 	},
 	"obsidian": {
 		Service: "obsidian",
@@ -358,20 +352,20 @@ After setup, use: pocket comms notify pushover "Your message"`,
 		SetupGuide: `Obsidian works with local markdown vaults. No API key required.
 
 1. Find your Obsidian vault path (the folder containing your .obsidian directory)
-2. Run: pocket config set obsidian_vault /path/to/your/vault
+2. Run: alpha config set obsidian_vault /path/to/your/vault
 
 Optional - Multiple vaults:
-   pocket config set obsidian_vaults '[{"name":"work","path":"/path/to/work"},{"name":"personal","path":"/path/to/personal"}]'
+   alpha config set obsidian_vaults '[{"name":"work","path":"/path/to/work"},{"name":"personal","path":"/path/to/personal"}]'
 
 Optional - Custom daily note format (Go date format):
-   pocket config set obsidian_daily_format "2006-01-02"
+   alpha config set obsidian_daily_format "2006-01-02"
 
 Common daily note formats:
    2006-01-02      -> 2024-01-15
    01-02-2006      -> 01-15-2024
    2006/01/02      -> 2024/01/15
    January 2, 2006 -> January 15, 2024`,
-		TestCommand: "pocket productivity obsidian vaults",
+		TestCommand: "alpha productivity obsidian vaults",
 	},
 	"logseq": {
 		Service: "logseq",
@@ -384,13 +378,13 @@ Common daily note formats:
 		SetupGuide: `Logseq works with local graphs (markdown/org files). No API key required.
 
 1. Find your Logseq graph path (the folder containing pages/ and journals/ directories)
-2. Run: pocket config set logseq_graph /path/to/your/graph
+2. Run: alpha config set logseq_graph /path/to/your/graph
 
 Optional - Set file format (md or org):
-   pocket config set logseq_format md
+   alpha config set logseq_format md
 
 Optional - Multiple graphs:
-   pocket config set logseq_graphs '[{"name":"work","path":"/path/to/work","format":"md"},{"name":"personal","path":"/path/to/personal","format":"org"}]'
+   alpha config set logseq_graphs '[{"name":"work","path":"/path/to/work","format":"md"},{"name":"personal","path":"/path/to/personal","format":"org"}]'
 
 Graph structure:
    your-graph/
@@ -399,7 +393,7 @@ Graph structure:
    └── logseq/         # Logseq config (not used by CLI)
 
 Page names with special characters (/, :, ?) are URL-encoded in filenames.`,
-		TestCommand: "pocket productivity logseq graphs",
+		TestCommand: "alpha productivity logseq graphs",
 	},
 	"amazon-sp": {
 		Service: "amazon-sp",
@@ -418,14 +412,14 @@ Page names with special characters (/, :, ?) are URL-encoded in filenames.`,
 5. Self-authorize the app to get a Refresh Token
 6. Find your Seller ID in Seller Central > Settings > Account Info
 7. Run:
-   pocket config set amazon_sp_client_id <your-client-id>
-   pocket config set amazon_sp_client_secret <your-client-secret>
-   pocket config set amazon_sp_refresh_token <your-refresh-token>
-   pocket config set amazon_sp_seller_id <your-seller-id>
+   alpha config set amazon_sp_client_id <your-client-id>
+   alpha config set amazon_sp_client_secret <your-client-secret>
+   alpha config set amazon_sp_refresh_token <your-refresh-token>
+   alpha config set amazon_sp_seller_id <your-seller-id>
 
 Optional - Set region (default: na):
-   pocket config set amazon_sp_region eu`,
-		TestCommand: "pocket marketing amazon-sp orders -l 1",
+   alpha config set amazon_sp_region eu`,
+		TestCommand: "alpha marketing amazon-sp orders -l 1",
 	},
 	"shopify": {
 		Service: "shopify",
@@ -442,11 +436,11 @@ Optional - Set region (default: na):
    - write_inventory (if you need inventory-set)
 5. Install the app and copy the Admin API access token
 6. Run:
-   pocket config set shopify_store <your-store-name>
-   pocket config set shopify_token <your-access-token>
+   alpha config set shopify_store <your-store-name>
+   alpha config set shopify_token <your-access-token>
 
 Note: The store name is the subdomain part of your .myshopify.com URL.`,
-		TestCommand: "pocket marketing shopify shop",
+		TestCommand: "alpha marketing shopify shop",
 	},
 	"spotify": {
 		Service: "spotify",
@@ -460,11 +454,11 @@ Note: The store name is the subdomain part of your .myshopify.com URL.`,
 3. Set redirect URI to http://localhost:8767/callback
 4. Copy the Client ID and Client Secret
 5. Run:
-   pocket config set spotify_client_id <your-client-id>
-   pocket config set spotify_client_secret <your-client-secret>
+   alpha config set spotify_client_id <your-client-id>
+   alpha config set spotify_client_secret <your-client-secret>
 
 Note: Free Spotify account works for search. Premium needed for playback control.`,
-		TestCommand: "pocket social spotify search test -l 1",
+		TestCommand: "alpha social spotify search test -l 1",
 	},
 	"sentry": {
 		Service: "sentry",
@@ -477,11 +471,11 @@ Note: Free Spotify account works for search. Premium needed for playback control
 2. Click "Create New Token"
 3. Select scopes: project:read, event:read, org:read
 4. Copy the token
-5. Run: pocket config set sentry_auth_token <your-token>
+5. Run: alpha config set sentry_auth_token <your-token>
 
 Optional - Set default org:
-   pocket config set sentry_org <your-org-slug>`,
-		TestCommand: "pocket dev sentry projects",
+   alpha config set sentry_org <your-org-slug>`,
+		TestCommand: "alpha dev sentry projects",
 	},
 	"virustotal": {
 		Service: "virustotal",
@@ -492,10 +486,10 @@ Optional - Set default org:
 		SetupGuide: `1. Sign up at https://www.virustotal.com/gui/join-us
 2. Go to https://www.virustotal.com/gui/my-apikey
 3. Copy your API key
-4. Run: pocket config set virustotal_api_key <your-api-key>
+4. Run: alpha config set virustotal_api_key <your-api-key>
 
 Note: Free tier allows 4 lookups/min, 500/day.`,
-		TestCommand: "pocket security virustotal domain example.com",
+		TestCommand: "alpha security virustotal domain example.com",
 	},
 	"s3": {
 		Service: "s3",
@@ -508,30 +502,47 @@ Note: Free tier allows 4 lookups/min, 500/day.`,
 2. Run: aws configure --profile <profile-name>
 3. Enter your Access Key ID, Secret Access Key, and region
 4. Run:
-   pocket config set aws_profile <profile-name>
-   pocket config set aws_region <region>
+   alpha config set aws_profile <profile-name>
+   alpha config set aws_region <region>
 
 Note: Uses the AWS SDK credential chain. IAM permissions needed: s3:ListBucket, s3:GetObject, s3:PutObject.`,
-		TestCommand: "pocket dev s3 buckets",
+		TestCommand: "alpha dev s3 buckets",
 	},
-	"google-api": {
-		Service: "google-api",
-		Name:    "Google API (Drive/Sheets)",
+	"google-oauth": {
+		Service: "google-oauth",
+		Name:    "Google OAuth (Drive/Calendar/Sheets)",
 		Keys: []KeyInfo{
-			{Key: "google_api_key", Description: "Google API key with Drive and Sheets APIs enabled", Required: true, Example: "AIzaSy..."},
+			{Key: "google_client_id", Description: "OAuth 2.0 Client ID (Desktop app)", Required: true, Example: "123456789.apps.googleusercontent.com"},
+			{Key: "google_client_secret", Description: "OAuth 2.0 Client Secret", Required: true},
+			{Key: "google_refresh_token", Description: "OAuth 2.0 Refresh Token", Required: true},
 		},
 		SetupGuide: `1. Go to https://console.cloud.google.com/
 2. Create a new project (or select existing)
 3. Enable these APIs:
    - Google Drive API: https://console.cloud.google.com/apis/library/drive.googleapis.com
    - Google Sheets API: https://console.cloud.google.com/apis/library/sheets.googleapis.com
-4. Go to Credentials > Create Credentials > API Key
-5. (Recommended) Restrict key to Drive and Sheets APIs
-6. Copy the API key
-7. Run: pocket config set google_api_key <your-api-key>
+   - Google Calendar API: https://console.cloud.google.com/apis/library/calendar-json.googleapis.com
+4. Go to Credentials > Create Credentials > OAuth client ID
+5. Select "Desktop app" as application type
+6. Copy Client ID and Client Secret
+7. Get a refresh token using OAuth Playground:
+   a. Go to https://developers.google.com/oauthplayground/
+   b. Click gear icon, check "Use your own OAuth credentials"
+   c. Enter your Client ID and Client Secret
+   d. In Step 1, select these scopes:
+      - Google Drive API v3: https://www.googleapis.com/auth/drive
+      - Google Calendar API v3: all scopes
+      - Google Sheets API v4: all scopes
+   e. Authorize and exchange for tokens
+   f. Copy the Refresh Token from Step 2
+8. Run:
+   alpha config set google_client_id <your-client-id>
+   alpha config set google_client_secret <your-client-secret>
+   alpha config set google_refresh_token <your-refresh-token>
 
-Note: API key only allows access to publicly shared files. For private files, use OAuth (see calendar setup).`,
-		TestCommand: "pocket productivity gdrive search test",
+Note: If you already have Calendar OAuth configured, just re-authorize
+with the Drive scope added to get a new refresh token.`,
+		TestCommand: "alpha productivity gdrive list -l 1",
 	},
 	"redis": {
 		Service: "redis",
@@ -544,13 +555,13 @@ Note: API key only allows access to publicly shared files. For private files, us
    - Local: redis://localhost:6379
    - Redis Cloud: redis://default:password@host:port
    - Docker: redis://host.docker.internal:6379
-2. Run: pocket config set redis_url <your-redis-url>
+2. Run: alpha config set redis_url <your-redis-url>
 
 Optional - If password is separate:
-   pocket config set redis_password <your-password>
+   alpha config set redis_password <your-password>
 
 Note: Supports Redis 6+ with AUTH.`,
-		TestCommand: "pocket dev redis info",
+		TestCommand: "alpha dev redis info",
 	},
 	"prometheus": {
 		Service: "prometheus",
@@ -560,13 +571,13 @@ Note: Supports Redis 6+ with AUTH.`,
 			{Key: "prometheus_token", Description: "Bearer token for auth (optional)", Required: false},
 		},
 		SetupGuide: `1. Get your Prometheus server URL (e.g., http://localhost:9090)
-2. Run: pocket config set prometheus_url <your-prometheus-url>
+2. Run: alpha config set prometheus_url <your-prometheus-url>
 
 Optional - If authentication is required:
-   pocket config set prometheus_token <your-bearer-token>
+   alpha config set prometheus_token <your-bearer-token>
 
 Note: Requires Prometheus HTTP API access (default port 9090).`,
-		TestCommand: "pocket dev prometheus targets",
+		TestCommand: "alpha dev prometheus targets",
 	},
 	"facebook-ads": {
 		Service: "facebook-ads",
@@ -584,12 +595,12 @@ Note: Requires Prometheus HTTP API access (default port 9090).`,
 6. Generate the token (this is a long-lived token)
 7. Find your Ad Account ID in Business Settings > Accounts > Ad Accounts
 8. Run:
-   pocket config set facebook_ads_token <your-token>
-   pocket config set facebook_ads_account_id <your-account-id>
+   alpha config set facebook_ads_token <your-token>
+   alpha config set facebook_ads_account_id <your-account-id>
 
 Note: Use OUTCOME-based objectives for campaigns (e.g. OUTCOME_TRAFFIC, OUTCOME_SALES).
 Legacy objectives cause 400 errors on API v24.0+.`,
-		TestCommand: "pocket marketing facebook-ads account",
+		TestCommand: "alpha marketing facebook-ads account",
 	},
 }
 
@@ -691,7 +702,7 @@ func newSetupSetCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "set [service] [key] [value]",
 		Short: "Set a credential for a service",
-		Long:  "Set a credential. Use 'pocket setup show <service>' to see required keys.",
+		Long:  "Set a credential. Use 'alpha setup show <service>' to see required keys.",
 		Args:  cobra.RangeArgs(2, 3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			service := args[0]
