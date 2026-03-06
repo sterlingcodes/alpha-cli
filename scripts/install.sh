@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-# Pocket CLI Installer
-# Usage: curl -fsSL https://raw.githubusercontent.com/unstablemind/pocket-agent-CLI/main/scripts/install.sh | bash
+# Alpha CLI Installer
+# Usage: curl -fsSL https://raw.githubusercontent.com/sterlingcodes/alpha-cli/main/scripts/install.sh | bash
 
-REPO="sterlingcodes/pocket-agent-cli"
-BINARY_NAME="pocket"
+REPO="sterlingcodes/alpha-cli"
+BINARY_NAME="alpha"
 INSTALL_DIR="$HOME/.local/bin"
 
 # Colors
@@ -62,12 +62,12 @@ download_and_install() {
     trap "rm -rf $TMP_DIR" EXIT
 
     # Download
-    if ! curl -fsSL "$DOWNLOAD_URL" -o "$TMP_DIR/pocket.tar.gz"; then
+    if ! curl -fsSL "$DOWNLOAD_URL" -o "$TMP_DIR/alpha.tar.gz"; then
         error "Failed to download. Check if release exists for your platform."
     fi
 
     # Extract
-    tar -xzf "$TMP_DIR/pocket.tar.gz" -C "$TMP_DIR"
+    tar -xzf "$TMP_DIR/alpha.tar.gz" -C "$TMP_DIR"
 
     # Install
     mkdir -p "$INSTALL_DIR"
@@ -87,7 +87,7 @@ configure_path() {
     info "Configuring PATH..."
 
     PATH_EXPORT="export PATH=\"\$PATH:$INSTALL_DIR\""
-    COMMENT="# Pocket CLI"
+    COMMENT="# Alpha CLI"
 
     # Function to add to config file
     add_to_config() {
@@ -112,7 +112,7 @@ configure_path() {
 main() {
     echo ""
     echo "╔═══════════════════════════════════════╗"
-    echo "║       Pocket CLI Installer            ║"
+    echo "║       Alpha CLI Installer             ║"
     echo "╚═══════════════════════════════════════╝"
     echo ""
 
@@ -123,7 +123,7 @@ main() {
 
     echo ""
     echo "════════════════════════════════════════"
-    echo -e "${GREEN}✅ Pocket CLI installed successfully!${NC}"
+    echo -e "${GREEN}Alpha CLI installed successfully!${NC}"
     echo "════════════════════════════════════════"
     echo ""
     echo "Restarting shell to apply PATH changes..."
@@ -143,7 +143,7 @@ main() {
             echo "  export PATH=\"\$PATH:$INSTALL_DIR\""
             echo ""
             echo "Then try:"
-            echo "  pocket commands"
+            echo "  alpha commands"
             ;;
     esac
 }

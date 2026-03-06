@@ -1,12 +1,12 @@
-# Pocket CLI Installer for Windows (PowerShell)
-# Usage: irm https://raw.githubusercontent.com/KenKaiii/pocket-agent-cli/main/scripts/install.ps1 | iex
+# Alpha CLI Installer for Windows (PowerShell)
+# Usage: irm https://raw.githubusercontent.com/sterlingcodes/alpha-cli/main/scripts/install.ps1 | iex
 # Compatible with Windows PowerShell 5.1 and PowerShell Core 7+
 
 $ErrorActionPreference = "Stop"
 
-$Repo = "KenKaiii/pocket-agent-cli"
-$BinaryName = "pocket.exe"
-$InstallDir = "$env:LOCALAPPDATA\Pocket"
+$Repo = "sterlingcodes/alpha-cli"
+$BinaryName = "alpha.exe"
+$InstallDir = "$env:LOCALAPPDATA\alpha-cli"
 
 # --- Helpers ---
 
@@ -98,17 +98,17 @@ function Get-LatestVersion {
 
 # --- Download & Install ---
 
-function Install-Pocket {
+function Install-Alpha {
     param($Version, $Platform)
 
-    $downloadUrl = "https://github.com/$Repo/releases/download/$Version/pocket_${Platform}.zip"
+    $downloadUrl = "https://github.com/$Repo/releases/download/$Version/alpha_${Platform}.zip"
     Write-Info "Downloading from: $downloadUrl"
 
     $tmpDir = Join-Path ([System.IO.Path]::GetTempPath()) ([System.IO.Path]::GetRandomFileName())
     New-Item -ItemType Directory -Path $tmpDir -Force | Out-Null
 
     try {
-        $zipPath = Join-Path $tmpDir "pocket.zip"
+        $zipPath = Join-Path $tmpDir "alpha.zip"
 
         # Silence progress bar — it slows downloads 10-50x on PowerShell 5.1
         $prevProgress = $ProgressPreference
@@ -176,7 +176,7 @@ function Set-PathEntry {
 
 Write-Host ""
 Write-Host "+===========================================+" -ForegroundColor Cyan
-Write-Host "|        Pocket CLI Installer (Windows)     |" -ForegroundColor Cyan
+Write-Host "|        Alpha CLI Installer (Windows)      |" -ForegroundColor Cyan
 Write-Host "+===========================================+" -ForegroundColor Cyan
 Write-Host ""
 
@@ -189,7 +189,7 @@ try {
     Write-Info "Detected platform: $platform"
 
     $version = Get-LatestVersion
-    Install-Pocket -Version $version -Platform $platform
+    Install-Alpha -Version $version -Platform $platform
     Set-PathEntry
 } finally {
     [Net.ServicePointManager]::SecurityProtocol = $originalTls
@@ -197,9 +197,9 @@ try {
 
 Write-Host ""
 Write-Host "============================================" -ForegroundColor Green
-Write-Host "  Pocket CLI installed successfully!" -ForegroundColor Green
+Write-Host "  Alpha CLI installed successfully!" -ForegroundColor Green
 Write-Host "============================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "Open a new terminal and run:" -ForegroundColor White
-Write-Host "  pocket commands" -ForegroundColor Yellow
+Write-Host "  alpha commands" -ForegroundColor Yellow
 Write-Host ""
