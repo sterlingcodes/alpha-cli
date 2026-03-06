@@ -1,0 +1,78 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - goos: darwin
+            goarch: amd64
+          - goos: darwin
+            goarch: arm64
+          - goos: linux
+            goarch: amd64
+          - goos: linux
+            goarch: arm64
+          - goos: linux
+            goarch: arm
+          - goos: windows
+            goarch: amd64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          VERSION=${GITHUB_REF_NAME}
+          BINARY_NAME="alpha"
+          if [ "$GOOS" = "windows" ]; then
+            BINARY_NAME="alpha.exe"
+          fi
+          go build -ldflags "-s -w -X main.Version=$VERSION" -o "$BINARY_NAME" ./cmd/pocket
+
+          PLATFORM="${GOOS}_${GOARCH}"
+          if [ "$GOOS" = "windows" ]; then
+            zip "alpha_${PLATFORM}.zip" "$BINARY_NAME"
+          else
+            tar -czf "alpha_${PLATFORM}.tar.gz" "$BINARY_NAME"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: alpha_${{ matrix.goos }}_${{ matrix.goarch }}
+          path: alpha_*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create checksums
+        working-directory: dist
+        run: sha256sum * > checksums.txt
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true

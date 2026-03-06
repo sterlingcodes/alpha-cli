@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 
-# Pocket CLI Release Builder
+# Alpha CLI Release Builder
 # Builds binaries for all platforms and creates release artifacts
 
 VERSION=${1:-$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.1.0")}
-BINARY_NAME="pocket"
+BINARY_NAME="alpha"
 BUILD_DIR="./dist"
 
 # Platforms to build
@@ -18,7 +18,7 @@ PLATFORMS=(
     "windows_amd64"
 )
 
-echo "Building Pocket CLI $VERSION"
+echo "Building Alpha CLI $VERSION"
 echo "================================"
 
 # Clean previous builds
@@ -53,7 +53,7 @@ for PLATFORM in "${PLATFORMS[@]}"; do
     fi
     cd ..
 
-    echo "  ✓ ${BINARY_NAME}_${PLATFORM}"
+    echo "  ${BINARY_NAME}_${PLATFORM}"
 done
 
 # Generate checksums
@@ -69,4 +69,4 @@ echo ""
 echo "To create a GitHub release:"
 echo "  git tag -a $VERSION -m 'Release $VERSION'"
 echo "  git push origin $VERSION"
-echo "  gh release create $VERSION $BUILD_DIR/* --title 'Pocket CLI $VERSION' --notes 'Release notes here'"
+echo "  gh release create $VERSION $BUILD_DIR/* --title 'Alpha CLI $VERSION' --notes 'Release notes here'"
