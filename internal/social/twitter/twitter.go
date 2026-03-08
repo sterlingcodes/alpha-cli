@@ -17,8 +17,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 const (
@@ -91,7 +91,7 @@ func newXClient() (*xClient, error) {
 	}
 
 	return nil, output.PrintError("auth_required",
-		"X/Twitter OAuth not configured or expired. Run: pocket social twitter auth",
+		"X/Twitter OAuth not configured or expired. Run: alpha social twitter auth",
 		nil)
 }
 
@@ -226,12 +226,12 @@ func newAuthCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "auth",
 		Short: "Authenticate with X/Twitter using OAuth 2.0",
-		Long:  "Opens your browser to authorize Pocket CLI with your X account.\nRequires x_client_id to be configured first.",
+		Long:  "Opens your browser to authorize Alpha CLI with your X account.\nRequires x_client_id to be configured first.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientID, err := config.MustGet("x_client_id")
 			if err != nil {
 				return output.PrintError("setup_required",
-					"x_client_id not configured. Set it first: pocket config set x_client_id <your-client-id>",
+					"x_client_id not configured. Set it first: alpha config set x_client_id <your-client-id>",
 					map[string]string{
 						"setup": "1. Go to https://developer.x.com/en/portal/dashboard\n2. Create or select your app\n3. Enable OAuth 2.0 and select 'Native App'\n4. Set callback URL to " + redirectURI + "\n5. Copy the Client ID",
 					})

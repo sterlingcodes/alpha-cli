@@ -1,7 +1,7 @@
 .PHONY: all build install install-local clean test lint fmt check help release dist
 
 # Binary name
-BINARY := pocket
+BINARY := alpha
 
 # Build directory
 BUILD_DIR := ./build
@@ -31,7 +31,7 @@ all: check build
 build:
 	@echo "Building $(BINARY)..."
 	@mkdir -p $(BUILD_DIR)
-	$(GOBUILD) $(BUILD_FLAGS) -o $(BUILD_DIR)/$(BINARY) ./cmd/pocket
+	$(GOBUILD) $(BUILD_FLAGS) -o $(BUILD_DIR)/$(BINARY) ./cmd/alpha
 
 ## install: Install locally for development
 install: build
@@ -87,7 +87,7 @@ fmt:
 	@echo "Formatting code..."
 	$(GOFMT) -s -w .
 	@which goimports > /dev/null || go install golang.org/x/tools/cmd/goimports@latest
-	goimports -w -local github.com/unstablemind/pocket .
+	goimports -w -local github.com/sterlingcodes/alpha-cli .
 
 ## vet: Run go vet
 vet:
@@ -140,4 +140,4 @@ help:
 	@echo "  tag           Create a new version tag"
 	@echo ""
 	@echo "Install from GitHub (for users):"
-	@echo "  curl -fsSL https://raw.githubusercontent.com/KenKaiii/pocket-agent-cli/main/scripts/install.sh | bash"
+	@echo "  curl -fsSL https://raw.githubusercontent.com/sterlingcodes/alpha-cli/main/scripts/install.sh | bash"

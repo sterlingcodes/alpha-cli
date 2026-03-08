@@ -11,7 +11,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var (
@@ -71,7 +71,7 @@ func newLookupCmd() *cobra.Command {
 			if err != nil {
 				return output.PrintError("request_error", fmt.Sprintf("failed to create request: %s", err.Error()), nil)
 			}
-			req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+			req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 			resp, err := httpClient.Do(req)
 			if err != nil {

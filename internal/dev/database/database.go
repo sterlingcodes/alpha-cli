@@ -9,7 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3" // sqlite3 driver registration
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 // QueryResult holds the results of a SQL query

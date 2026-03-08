@@ -3,10 +3,10 @@ package commands
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/security/crtsh"
-	"github.com/unstablemind/pocket/internal/security/hibp"
-	"github.com/unstablemind/pocket/internal/security/shodan"
-	"github.com/unstablemind/pocket/internal/security/virustotal"
+	"github.com/sterlingcodes/alpha-cli/internal/security/crtsh"
+	"github.com/sterlingcodes/alpha-cli/internal/security/hibp"
+	"github.com/sterlingcodes/alpha-cli/internal/security/shodan"
+	"github.com/sterlingcodes/alpha-cli/internal/security/virustotal"
 )
 
 func NewSecurityCmd() *cobra.Command {

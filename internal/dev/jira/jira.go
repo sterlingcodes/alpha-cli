@@ -13,8 +13,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var httpClient = &http.Client{Timeout: 30 * time.Second}
@@ -363,7 +363,7 @@ func getCredentials() (baseURL, email, token string, err error) {
 	}
 	if baseURL == "" {
 		return "", "", "", output.PrintError("missing_config", "Jira URL not configured", map[string]string{
-			"setup": "Run: pocket config set jira_url https://your-domain.atlassian.net",
+			"setup": "Run: alpha config set jira_url https://your-domain.atlassian.net",
 		})
 	}
 	// Remove trailing slash if present
@@ -375,7 +375,7 @@ func getCredentials() (baseURL, email, token string, err error) {
 	}
 	if email == "" {
 		return "", "", "", output.PrintError("missing_config", "Jira email not configured", map[string]string{
-			"setup": "Run: pocket config set jira_email your-email@example.com",
+			"setup": "Run: alpha config set jira_email your-email@example.com",
 		})
 	}
 
@@ -385,7 +385,7 @@ func getCredentials() (baseURL, email, token string, err error) {
 	}
 	if token == "" {
 		return "", "", "", output.PrintError("missing_config", "Jira API token not configured", map[string]string{
-			"setup": "Run: pocket config set jira_token YOUR_API_TOKEN",
+			"setup": "Run: alpha config set jira_token YOUR_API_TOKEN",
 			"docs":  "Create token at: https://id.atlassian.com/manage-profile/security/api-tokens",
 		})
 	}

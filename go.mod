@@ -1,4 +1,4 @@
-module github.com/unstablemind/pocket
+module github.com/sterlingcodes/alpha-cli
 
 go 1.25.6
 

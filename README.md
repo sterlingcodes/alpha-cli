@@ -1,7 +1,7 @@
-# 🛠️ Pocket CLI
+# 🛠️ Alpha CLI
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/KenKaiii/pocket-agent/main/assets/icon_rounded_1024.png" alt="Pocket CLI" width="200">
+  <img src="https://raw.githubusercontent.com/sterlingcodes/alpha-cli/main/assets/icon_rounded_1024.png" alt="Alpha CLI" width="200">
 </p>
 
 <p align="center">
@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/KenKaiii/pocket-agent-cli/releases/latest"><img src="https://img.shields.io/github/v/release/KenKaiii/pocket-agent-cli?include_prereleases&style=for-the-badge" alt="GitHub release"></a>
+  <a href="https://github.com/sterlingcodes/alpha-cli/releases/latest"><img src="https://img.shields.io/github/v/release/sterlingcodes/alpha-cli?include_prereleases&style=for-the-badge" alt="GitHub release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License"></a>
   <a href="https://youtube.com/@kenkaidoesai"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube"></a>
   <a href="https://skool.com/kenkai"><img src="https://img.shields.io/badge/Skool-Community-7C3AED?style=for-the-badge" alt="Skool"></a>
 </p>
 
-**Pocket CLI** gives your AI assistant the power to actually *do things* on the internet — check emails, browse social media, get news, look up information, and more.
+**Alpha CLI** gives your AI assistant the power to actually *do things* on the internet — check emails, browse social media, get news, look up information, and more.
 
 Think of it as hands for your AI. Instead of just chatting, your AI can now reach out and interact with real services like Twitter, YouTube, Hacker News, Wikipedia, and dozens more.
 
@@ -29,12 +29,12 @@ One command. That's it.
 
 **macOS / Linux:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/KenKaiii/pocket-agent-cli/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/sterlingcodes/alpha-cli/main/scripts/install.sh | bash
 ```
 
 **Windows (PowerShell):**
 ```powershell
-irm https://raw.githubusercontent.com/KenKaiii/pocket-agent-cli/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/sterlingcodes/alpha-cli/main/scripts/install.ps1 | iex
 ```
 
 Works on **macOS** (Intel & Apple Silicon), **Linux**, and **Windows**.
@@ -53,7 +53,7 @@ To update later, just run the same command again.
 
 AI assistants are smart but powerless. They can answer questions, but they can't actually *do* anything.
 
-Pocket CLI changes that. It's a universal interface that lets any AI agent interact with the real world:
+Alpha CLI changes that. It's a universal interface that lets any AI agent interact with the real world:
 - Check your emails and send replies
 - Send SMS via Twilio, push notifications via ntfy
 - Message on Slack, Discord, Telegram
@@ -63,7 +63,7 @@ Pocket CLI changes that. It's a universal interface that lets any AI agent inter
 - Query Wikipedia, StackOverflow, dictionaries
 - Manage Todoist tasks, Notion pages, Obsidian vaults
 - Control macOS apps: Calendar, Reminders, Notes, Contacts, Finder, Safari
-- **81 integrations** across 10 categories
+- **80 integrations** across 10 categories
 
 All with simple commands that return clean JSON — perfect for AI to understand and act on.
 
@@ -73,52 +73,51 @@ All with simple commands that return clean JSON — perfect for AI to understand
 
 ### No setup required (works immediately)
 ```bash
-pocket news hn top -l 5              # Top 5 Hacker News stories
-pocket utility weather now "Tokyo"   # Current weather in Tokyo
-pocket knowledge wiki summary "AI"   # Wikipedia summary
-pocket utility crypto price bitcoin  # Bitcoin price
-pocket utility currency convert 100 USD EUR  # Currency conversion
-pocket utility translate text "Hello" --to es # Translate to Spanish
-pocket dev npm info react            # npm package info
-pocket dev dockerhub search nginx    # Search Docker images
-pocket comms notify ntfy mytopic "Hello!"    # Push notification (no auth)
-pocket comms webhook slack [url] "Message"   # Slack webhook
-pocket security crtsh lookup example.com      # Certificate transparency logs
-pocket utility netdiag ping example.com      # Network diagnostics
-pocket utility timezone get "America/New_York" # Timezone info
-pocket utility paste create "code snippet"   # Create a paste
-pocket utility video download [url]          # Download video (auto-installs yt-dlp)
+alpha news hn top -l 5              # Top 5 Hacker News stories
+alpha utility weather now "Tokyo"   # Current weather in Tokyo
+alpha knowledge wiki summary "AI"   # Wikipedia summary
+alpha utility crypto price bitcoin  # Bitcoin price
+alpha utility currency convert 100 USD EUR  # Currency conversion
+alpha utility translate text "Hello" --to es # Translate to Spanish
+alpha dev npm info react            # npm package info
+alpha dev dockerhub search nginx    # Search Docker images
+alpha comms notify ntfy mytopic "Hello!"    # Push notification (no auth)
+alpha comms webhook slack [url] "Message"   # Slack webhook
+alpha security crtsh lookup example.com      # Certificate transparency logs
+alpha utility netdiag ping example.com      # Network diagnostics
+alpha utility timezone get "America/New_York" # Timezone info
+alpha utility paste create "code snippet"   # Create a paste
 
 # macOS only (no auth needed)
-pocket system reminders today        # Today's reminders
-pocket system notes list             # List Apple Notes
-pocket system calendar today         # Today's calendar events
-pocket system clipboard get          # Get clipboard content
-pocket system finder search "query"  # Spotlight search
+alpha system reminders today        # Today's reminders
+alpha system notes list             # List Apple Notes
+alpha system calendar today         # Today's calendar events
+alpha system clipboard get          # Get clipboard content
+alpha system finder search "query"  # Spotlight search
 ```
 
 ### With credentials (one-time setup)
 ```bash
-pocket comms email list -l 10        # Your latest emails
-pocket comms slack channels          # List Slack channels
-pocket comms discord guilds          # List Discord servers
-pocket comms telegram send 123 "Hi"  # Send Telegram message
-pocket comms twilio send +1234 "SMS" # Send SMS via Twilio
-pocket social youtube search "AI"    # Search YouTube
-pocket social twitter timeline       # Your Twitter feed
-pocket social spotify search "Lo-fi"  # Search Spotify tracks
-pocket productivity todoist tasks    # Your todo list
-pocket productivity trello boards    # Your Trello boards
-pocket productivity obsidian notes   # List Obsidian notes
-pocket productivity logseq pages     # List Logseq pages
-pocket productivity gdrive search "q" # Google Drive files
-pocket productivity gsheets read ID  # Read a Google Sheet
-pocket dev github repos              # Your GitHub repos
-pocket dev jira issues               # Your Jira issues
-pocket dev sentry issues             # Sentry error tracking
-pocket dev kube pods                 # Kubernetes pods
-pocket security virustotal url URL   # Scan URL for threats
-pocket security shodan lookup 1.2.3.4 # Shodan host lookup
+alpha comms email list -l 10        # Your latest emails
+alpha comms slack channels          # List Slack channels
+alpha comms discord guilds          # List Discord servers
+alpha comms telegram send 123 "Hi"  # Send Telegram message
+alpha comms twilio send +1234 "SMS" # Send SMS via Twilio
+alpha social youtube search "AI"    # Search YouTube
+alpha social twitter timeline       # Your Twitter feed
+alpha social spotify search "Lo-fi"  # Search Spotify tracks
+alpha productivity todoist tasks    # Your todo list
+alpha productivity trello boards    # Your Trello boards
+alpha productivity obsidian notes   # List Obsidian notes
+alpha productivity logseq pages     # List Logseq pages
+alpha productivity gdrive search "q" # Google Drive files
+alpha productivity gsheets read ID  # Read a Google Sheet
+alpha dev github repos              # Your GitHub repos
+alpha dev jira issues               # Your Jira issues
+alpha dev sentry issues             # Sentry error tracking
+alpha dev kube pods                 # Kubernetes pods
+alpha security virustotal url URL   # Scan URL for threats
+alpha security shodan lookup 1.2.3.4 # Shodan host lookup
 ```
 
 ---
@@ -127,116 +126,116 @@ pocket security shodan lookup 1.2.3.4 # Shodan host lookup
 
 ### See what's available
 ```bash
-pocket commands                      # All commands (for AI agents)
-pocket integrations list             # All integrations + auth status
-pocket integrations list --no-auth   # Services that work without setup
+alpha commands                      # All commands (for AI agents)
+alpha integrations list             # All integrations + auth status
+alpha integrations list --no-auth   # Services that work without setup
 ```
 
 ### Set up credentials
 ```bash
-pocket setup list                    # What needs configuration
-pocket setup show email              # Step-by-step setup guide
-pocket setup set email imap_server imap.gmail.com
+alpha setup list                    # What needs configuration
+alpha setup show email              # Step-by-step setup guide
+alpha setup set email imap_server imap.gmail.com
 ```
 
 ### Example workflow
 ```bash
 # Check what integrations work without auth
-$ pocket integrations list --no-auth
+$ alpha integrations list --no-auth
 
 # Get top tech news
-$ pocket news hn top -l 3
+$ alpha news hn top -l 3
 
 # Look up a term
-$ pocket knowledge dict define "API"
+$ alpha knowledge dict define "API"
 
 # Check the weather
-$ pocket utility weather now "San Francisco"
+$ alpha utility weather now "San Francisco"
 
 # Send yourself a notification (no auth needed!)
-$ pocket comms notify ntfy my-alerts "Task completed!"
+$ alpha comms notify ntfy my-alerts "Task completed!"
 ```
 
 ### Communication examples
 ```bash
 # Send SMS (requires Twilio setup)
-pocket comms twilio send "+15551234567" "Hello from Pocket CLI"
+alpha comms twilio send "+15551234567" "Hello from Alpha CLI"
 
 # Discord bot commands
-pocket comms discord guilds              # List servers
-pocket comms discord channels 123456     # List channels in server
-pocket comms discord send 789 "Hello!"   # Send message to channel
+alpha comms discord guilds              # List servers
+alpha comms discord channels 123456     # List channels in server
+alpha comms discord send 789 "Hello!"   # Send message to channel
 
 # Slack integration
-pocket comms slack channels              # List channels
-pocket comms slack send general "Hi!"    # Post to channel
-pocket comms slack search "important"    # Search messages
+alpha comms slack channels              # List channels
+alpha comms slack send general "Hi!"    # Post to channel
+alpha comms slack search "important"    # Search messages
 
 # Telegram bot
-pocket comms telegram chats              # List chats
-pocket comms telegram send 123 "Hello"   # Send message
+alpha comms telegram chats              # List chats
+alpha comms telegram send 123 "Hello"   # Send message
 
 # Push notifications (ntfy.sh - no auth!)
-pocket comms notify ntfy alerts "Server is down!" --priority 5
+alpha comms notify ntfy alerts "Server is down!" --priority 5
 
 # Webhooks (no auth)
-pocket comms webhook discord [url] "Deployment complete"
+alpha comms webhook discord [url] "Deployment complete"
 ```
 
 ### macOS system examples (no auth needed)
 ```bash
 # Apple Reminders
-pocket system reminders lists            # List all reminder lists
-pocket system reminders today            # Today's reminders
-pocket system reminders add "Buy milk"   # Add a reminder
-pocket system reminders complete "Buy milk"  # Mark complete
+alpha system reminders lists            # List all reminder lists
+alpha system reminders today            # Today's reminders
+alpha system reminders add "Buy milk"   # Add a reminder
+alpha system reminders complete "Buy milk"  # Mark complete
 
 # Apple Notes
-pocket system notes folders              # List folders
-pocket system notes list                 # List all notes
-pocket system notes read "Shopping"      # Read a note
-pocket system notes create "Ideas" "My brilliant idea"
+alpha system notes folders              # List folders
+alpha system notes list                 # List all notes
+alpha system notes read "Shopping"      # Read a note
+alpha system notes create "Ideas" "My brilliant idea"
 
 # Apple Calendar
-pocket system apple-calendar calendars   # List calendars
-pocket system apple-calendar today       # Today's events
-pocket system apple-calendar upcoming    # Next 7 days
+alpha system apple-calendar calendars   # List calendars
+alpha system apple-calendar today       # Today's events
+alpha system apple-calendar upcoming    # Next 7 days
 
 # Apple Contacts
-pocket system contacts search "John"     # Search contacts
-pocket system contacts get "John Doe"    # Get full details
+alpha system contacts search "John"     # Search contacts
+alpha system contacts get "John Doe"    # Get full details
 
 # Finder & Clipboard
-pocket system finder search "project"    # Spotlight search
-pocket system finder info ~/Documents    # Get folder info
-pocket system clipboard get              # Get clipboard
-pocket system clipboard set "Hello"      # Set clipboard
+alpha system finder search "project"    # Spotlight search
+alpha system finder info ~/Documents    # Get folder info
+alpha system clipboard get              # Get clipboard
+alpha system clipboard set "Hello"      # Set clipboard
 
 # Safari (requires Safari to be running)
-pocket system safari tabs                # List open tabs
-pocket system safari bookmarks           # List bookmarks
-pocket system safari history --limit 10  # Recent history
+alpha system safari tabs                # List open tabs
+alpha system safari bookmarks           # List bookmarks
+alpha system safari history --limit 10  # Recent history
 ```
 
 ### Obsidian & Logseq examples
 ```bash
 # Obsidian (configure vault path first)
-pocket config set obsidian_vault ~/Documents/MyVault
-pocket productivity obsidian notes       # List all notes
-pocket productivity obsidian daily       # Today's daily note
-pocket productivity obsidian search "AI" # Search notes
-pocket productivity obsidian read "Ideas"  # Read a note
+alpha config set obsidian_vault ~/Documents/MyVault
+alpha productivity obsidian notes       # List all notes
+alpha productivity obsidian daily       # Today's daily note
+alpha productivity obsidian search "AI" # Search notes
+alpha productivity obsidian read "Ideas"  # Read a note
 
 # Logseq (configure graph path first)
-pocket config set logseq_graph ~/Documents/MyGraph
-pocket productivity logseq pages         # List pages
-pocket productivity logseq journal       # Today's journal
-pocket productivity logseq search "todo" # Search pages
+alpha config set logseq_graph ~/Documents/MyGraph
+alpha productivity logseq pages         # List pages
+alpha productivity logseq journal       # Today's journal
+alpha productivity logseq search "todo" # Search pages
 ```
 
 ---
 
-## 📦 All 81 integrations
+## 📦 All 80 integrations
 
 | Category | Services |
 |----------|----------|
@@ -246,13 +245,13 @@ pocket productivity logseq search "todo" # Search pages
 | **Knowledge** (3) | Wikipedia, StackOverflow, Dictionary |
 | **Dev Tools** (16) | GitHub, GitLab, Gist, Linear, Jira, Sentry, Cloudflare, Vercel, npm, PyPI, Docker Hub, Redis, Prometheus, Kubernetes, Database, S3 |
 | **Productivity** (8) | Todoist, Notion, Google Calendar, Google Drive, Google Sheets, Trello, Obsidian, Logseq |
-| **Utility** (19) | Weather, Crypto, Currency, IP lookup, DNS/WHOIS/SSL, Wayback Machine, Holidays, Translation, URL Shortener, Stocks, Geocoding, Network Diagnostics, Pastebin, Timezone, DNS Benchmark, Speed Test, Traceroute, WiFi Info, Video Download (yt-dlp) |
+| **Utility** (18) | Weather, Crypto, Currency, IP lookup, DNS/WHOIS/SSL, Wayback Machine, Holidays, Translation, URL Shortener, Stocks, Geocoding, Network Diagnostics, Pastebin, Timezone, DNS Benchmark, Speed Test, Traceroute, WiFi Info |
 | **Security** (4) | VirusTotal, Shodan, Certificate Transparency (crt.sh), Have I Been Pwned |
 | **Marketing** (3) | Facebook Ads (Meta), Amazon Selling Partner, Shopify |
 | **System** (13) | Apple Calendar, Apple Reminders, Apple Notes, Apple Contacts, Apple Mail, Safari, Finder, Clipboard, iMessage, Battery, System Cleanup, Disk Health, System Info *(macOS only)* |
 
-### 47 integrations work without any setup:
-Hacker News, RSS, Wikipedia, StackOverflow, Dictionary, Weather, Crypto, Currency, IP lookup, Domain tools, Wayback Machine, Holidays, Translation, URL Shortener, npm, PyPI, Docker Hub, Gist, Kubernetes, Database, Geocoding, Timezone, Network Diagnostics, Pastebin, DNS Benchmark, Speed Test, Traceroute, WiFi Info, Video Download, Shodan, Certificate Transparency, Have I Been Pwned, ntfy notifications, Webhooks, plus all 13 macOS System integrations
+### 46 integrations work without any setup:
+Hacker News, RSS, Wikipedia, StackOverflow, Dictionary, Weather, Crypto, Currency, IP lookup, Domain tools, Wayback Machine, Holidays, Translation, URL Shortener, npm, PyPI, Docker Hub, Gist, Kubernetes, Database, Geocoding, Timezone, Network Diagnostics, Pastebin, DNS Benchmark, Speed Test, Traceroute, WiFi Info, Shodan, Certificate Transparency, Have I Been Pwned, ntfy notifications, Webhooks, plus all 13 macOS System integrations
 
 ---
 
@@ -279,7 +278,7 @@ Errors are structured too:
   "error": {
     "code": "setup_required",
     "message": "Email not configured",
-    "setup_cmd": "pocket setup show email"
+    "setup_cmd": "alpha setup show email"
   }
 }
 ```
@@ -290,7 +289,7 @@ Your AI knows exactly what went wrong and how to fix it.
 
 ## 🔒 Privacy
 
-- Credentials stored locally in `~/.config/pocket/config.json`
+- Credentials stored locally in `~/.config/alpha/config.json`
 - No telemetry, no analytics
 - API calls go directly to the services you configure
 - Open source — inspect every line
@@ -300,8 +299,8 @@ Your AI knows exactly what went wrong and how to fix it.
 ## 🛠️ For developers
 
 ```bash
-git clone https://github.com/KenKaiii/pocket-agent-cli.git
-cd pocket-agent-cli
+git clone https://github.com/sterlingcodes/alpha-cli.git
+cd alpha-cli
 make install
 ```
 
@@ -332,5 +331,5 @@ MIT
 </p>
 
 <p align="center">
-  <a href="https://github.com/KenKaiii/pocket-agent-cli/releases/latest"><img src="https://img.shields.io/badge/Install-One%20Command-blue?style=for-the-badge" alt="Install"></a>
+  <a href="https://github.com/sterlingcodes/alpha-cli/releases/latest"><img src="https://img.shields.io/badge/Install-One%20Command-blue?style=for-the-badge" alt="Install"></a>
 </p>

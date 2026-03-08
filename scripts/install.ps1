@@ -6,7 +6,7 @@ $ErrorActionPreference = "Stop"
 
 $Repo = "sterlingcodes/alpha-cli"
 $BinaryName = "alpha.exe"
-$InstallDir = "$env:LOCALAPPDATA\alpha-cli"
+$InstallDir = "$env:LOCALAPPDATA\Alpha"
 
 # --- Helpers ---
 
@@ -176,7 +176,7 @@ function Set-PathEntry {
 
 Write-Host ""
 Write-Host "+===========================================+" -ForegroundColor Cyan
-Write-Host "|        Alpha CLI Installer (Windows)      |" -ForegroundColor Cyan
+Write-Host "|        Alpha CLI Installer (Windows)     |" -ForegroundColor Cyan
 Write-Host "+===========================================+" -ForegroundColor Cyan
 Write-Host ""
 

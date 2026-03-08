@@ -14,8 +14,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var (
@@ -132,7 +132,7 @@ func getToken() (string, error) {
 	if err != nil || clientID == "" {
 		return "", output.PrintError("setup_required", "Spotify client ID not configured", map[string]any{
 			"missing":   []string{"spotify_client_id", "spotify_client_secret"},
-			"setup_cmd": "pocket config set spotify_client_id <your-id>",
+			"setup_cmd": "alpha config set spotify_client_id <your-id>",
 			"hint":      "Create an app at https://developer.spotify.com/dashboard",
 		})
 	}
@@ -141,7 +141,7 @@ func getToken() (string, error) {
 	if err != nil || clientSecret == "" {
 		return "", output.PrintError("setup_required", "Spotify client secret not configured", map[string]any{
 			"missing":   []string{"spotify_client_secret"},
-			"setup_cmd": "pocket config set spotify_client_secret <your-secret>",
+			"setup_cmd": "alpha config set spotify_client_secret <your-secret>",
 			"hint":      "Create an app at https://developer.spotify.com/dashboard",
 		})
 	}
@@ -158,7 +158,7 @@ func getToken() (string, error) {
 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Authorization", "Basic "+base64.StdEncoding.EncodeToString([]byte(clientID+":"+clientSecret)))
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {
@@ -465,7 +465,7 @@ func doRequest(token, reqURL string) ([]byte, error) {
 	}
 
 	req.Header.Set("Authorization", "Bearer "+token)
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {

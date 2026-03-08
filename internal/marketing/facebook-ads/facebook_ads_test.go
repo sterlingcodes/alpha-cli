@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/unstablemind/pocket/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
 )
 
 // testConfigDir is set once in TestMain and reused by all tests.

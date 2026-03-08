@@ -12,7 +12,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var (
@@ -140,7 +140,7 @@ func fetchTimezoneByIP(ip string) error {
 		return output.PrintError("fetch_failed", err.Error(), nil)
 	}
 
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 	req.Header.Set("Accept", "application/json")
 
 	resp, err := httpClient.Do(req)

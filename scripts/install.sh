@@ -112,7 +112,7 @@ configure_path() {
 main() {
     echo ""
     echo "╔═══════════════════════════════════════╗"
-    echo "║       Alpha CLI Installer             ║"
+    echo "║       Alpha CLI Installer            ║"
     echo "╚═══════════════════════════════════════╝"
     echo ""
 
@@ -123,7 +123,7 @@ main() {
 
     echo ""
     echo "════════════════════════════════════════"
-    echo -e "${GREEN}Alpha CLI installed successfully!${NC}"
+    echo -e "${GREEN}✅ Alpha CLI installed successfully!${NC}"
     echo "════════════════════════════════════════"
     echo ""
     echo "Restarting shell to apply PATH changes..."

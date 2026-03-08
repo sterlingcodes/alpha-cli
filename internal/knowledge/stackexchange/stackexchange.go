@@ -14,7 +14,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://api.stackexchange.com/2.3"
@@ -218,7 +218,7 @@ func seGet(endpoint string, params url.Values, result any) error {
 		return err
 	}
 
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 	req.Header.Set("Accept-Encoding", "gzip")
 
 	resp, err := httpClient.Do(req)

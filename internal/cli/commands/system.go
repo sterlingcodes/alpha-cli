@@ -3,19 +3,19 @@ package commands
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/system/battery"
-	"github.com/unstablemind/pocket/internal/system/calendar"
-	"github.com/unstablemind/pocket/internal/system/cleanup"
-	"github.com/unstablemind/pocket/internal/system/clipboard"
-	"github.com/unstablemind/pocket/internal/system/contacts"
-	"github.com/unstablemind/pocket/internal/system/diskhealth"
-	"github.com/unstablemind/pocket/internal/system/finder"
-	"github.com/unstablemind/pocket/internal/system/imessage"
-	"github.com/unstablemind/pocket/internal/system/mail"
-	"github.com/unstablemind/pocket/internal/system/notes"
-	"github.com/unstablemind/pocket/internal/system/reminders"
-	"github.com/unstablemind/pocket/internal/system/safari"
-	"github.com/unstablemind/pocket/internal/system/sysinfo"
+	"github.com/sterlingcodes/alpha-cli/internal/system/battery"
+	"github.com/sterlingcodes/alpha-cli/internal/system/calendar"
+	"github.com/sterlingcodes/alpha-cli/internal/system/cleanup"
+	"github.com/sterlingcodes/alpha-cli/internal/system/clipboard"
+	"github.com/sterlingcodes/alpha-cli/internal/system/contacts"
+	"github.com/sterlingcodes/alpha-cli/internal/system/diskhealth"
+	"github.com/sterlingcodes/alpha-cli/internal/system/finder"
+	"github.com/sterlingcodes/alpha-cli/internal/system/imessage"
+	"github.com/sterlingcodes/alpha-cli/internal/system/mail"
+	"github.com/sterlingcodes/alpha-cli/internal/system/notes"
+	"github.com/sterlingcodes/alpha-cli/internal/system/reminders"
+	"github.com/sterlingcodes/alpha-cli/internal/system/safari"
+	"github.com/sterlingcodes/alpha-cli/internal/system/sysinfo"
 )
 
 func NewSystemCmd() *cobra.Command {

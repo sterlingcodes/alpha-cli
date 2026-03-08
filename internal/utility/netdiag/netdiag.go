@@ -11,7 +11,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var httpClient = &http.Client{
@@ -139,7 +139,7 @@ func fetchHeaders(rawURL string) error {
 		return output.PrintError("fetch_failed", err.Error(), nil)
 	}
 
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {

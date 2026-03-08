@@ -11,8 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://api.telegram.org/bot"
@@ -252,7 +252,7 @@ func newSendCmd() *cobra.Command {
 
 			if chatID == "" {
 				return output.PrintError("missing_chat", "Chat ID is required", map[string]any{
-					"hint": "Use --chat flag to specify the chat ID. Get chat IDs from 'pocket telegram chats'",
+					"hint": "Use --chat flag to specify the chat ID. Get chat IDs from 'alpha telegram chats'",
 				})
 			}
 
@@ -425,7 +425,7 @@ func getToken() (string, error) {
 	token, err := config.MustGet("telegram_token")
 	if err != nil {
 		return "", output.PrintError("token_missing", "Telegram bot token not configured", map[string]any{
-			"setup_cmd": "pocket config set telegram_token <your-bot-token>",
+			"setup_cmd": "alpha config set telegram_token <your-bot-token>",
 			"hint":      "Create a bot via @BotFather on Telegram to get a token",
 			"docs":      "https://core.telegram.org/bots#how-do-i-create-a-bot",
 		})

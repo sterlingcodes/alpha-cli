@@ -180,8 +180,8 @@ func TestCleanHTML(t *testing.T) {
 func TestDoRequest(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Check User-Agent
-		if r.Header.Get("User-Agent") != "Pocket-CLI/1.0" {
-			t.Errorf("expected User-Agent 'Pocket-CLI/1.0', got %q", r.Header.Get("User-Agent"))
+		if r.Header.Get("User-Agent") != "Alpha-CLI/1.0" {
+			t.Errorf("expected User-Agent 'Alpha-CLI/1.0', got %q", r.Header.Get("User-Agent"))
 		}
 
 		// Return mock video data

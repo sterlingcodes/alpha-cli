@@ -11,8 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var apiVersion = "2026-01"
@@ -118,7 +118,7 @@ func newClient() (*shopClient, error) {
 	}
 	if store == "" {
 		return nil, output.PrintError("missing_config", "Shopify store not configured", map[string]string{
-			"setup": "Run: pocket setup show shopify",
+			"setup": "Run: alpha setup show shopify",
 		})
 	}
 
@@ -128,7 +128,7 @@ func newClient() (*shopClient, error) {
 	}
 	if token == "" {
 		return nil, output.PrintError("missing_config", "Shopify access token not configured", map[string]string{
-			"setup": "Run: pocket setup show shopify",
+			"setup": "Run: alpha setup show shopify",
 		})
 	}
 
@@ -156,7 +156,7 @@ func (c *shopClient) doGet(endpoint string, params url.Values) (map[string]any, 
 		return nil, err
 	}
 	req.Header.Set("X-Shopify-Access-Token", c.token)
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {
@@ -199,7 +199,7 @@ func (c *shopClient) doMutationRequest(method, endpoint string, payload any) (ma
 	}
 	req.Header.Set("X-Shopify-Access-Token", c.token)
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {
@@ -244,7 +244,7 @@ func (c *shopClient) doDelete(endpoint string) error {
 		return err
 	}
 	req.Header.Set("X-Shopify-Access-Token", c.token)
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {

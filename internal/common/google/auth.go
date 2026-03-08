@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/unstablemind/pocket/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
 )
 
 var tokenURL = "https://oauth2.googleapis.com/token" //nolint:gosec // OAuth endpoint URL, not a credential

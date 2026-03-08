@@ -3,13 +3,13 @@ package commands
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/communication/discord"
-	"github.com/unstablemind/pocket/internal/communication/email"
-	"github.com/unstablemind/pocket/internal/communication/notify"
-	"github.com/unstablemind/pocket/internal/communication/slack"
-	"github.com/unstablemind/pocket/internal/communication/telegram"
-	"github.com/unstablemind/pocket/internal/communication/twilio"
-	"github.com/unstablemind/pocket/internal/communication/webhook"
+	"github.com/sterlingcodes/alpha-cli/internal/communication/discord"
+	"github.com/sterlingcodes/alpha-cli/internal/communication/email"
+	"github.com/sterlingcodes/alpha-cli/internal/communication/notify"
+	"github.com/sterlingcodes/alpha-cli/internal/communication/slack"
+	"github.com/sterlingcodes/alpha-cli/internal/communication/telegram"
+	"github.com/sterlingcodes/alpha-cli/internal/communication/twilio"
+	"github.com/sterlingcodes/alpha-cli/internal/communication/webhook"
 )
 
 func NewCommsCmd() *cobra.Command {

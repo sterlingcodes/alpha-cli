@@ -11,7 +11,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://en.wikipedia.org/w/api.php"
@@ -218,7 +218,7 @@ func wikiGet(params url.Values, result any) error {
 		return err
 	}
 
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0 (https://github.com/unstablemind/pocket)")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0 (https://github.com/sterlingcodes/alpha-cli)")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {

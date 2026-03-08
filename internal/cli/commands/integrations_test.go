@@ -9,7 +9,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
 )
 
 // testConfigPath is set once in TestMain and reused by all tests.
@@ -164,7 +164,7 @@ func TestNoAuthIntegrationsReturnNoAuth(t *testing.T) {
 }
 
 // TestAuthIntegrationsWithSetupCmdHaveServiceEntry verifies that every
-// integration referencing "pocket setup show X" has a corresponding entry
+// integration referencing "alpha setup show X" has a corresponding entry
 // in the services map in setup.go.
 func TestAuthIntegrationsWithSetupCmdHaveServiceEntry(t *testing.T) {
 	for _, integ := range allIntegrations {
@@ -172,7 +172,7 @@ func TestAuthIntegrationsWithSetupCmdHaveServiceEntry(t *testing.T) {
 			continue
 		}
 
-		// Extract service name from "pocket setup show <name>"
+		// Extract service name from "alpha setup show <name>"
 		const prefix = "alpha setup show "
 		if !strings.HasPrefix(integ.SetupCmd, prefix) {
 			t.Errorf("integration %q: SetupCmd %q doesn't match expected format %q...", integ.ID, integ.SetupCmd, prefix)

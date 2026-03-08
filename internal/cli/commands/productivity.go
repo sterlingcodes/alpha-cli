@@ -3,14 +3,14 @@ package commands
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/productivity/calendar"
-	"github.com/unstablemind/pocket/internal/productivity/gdrive"
-	"github.com/unstablemind/pocket/internal/productivity/gsheets"
-	"github.com/unstablemind/pocket/internal/productivity/logseq"
-	"github.com/unstablemind/pocket/internal/productivity/notion"
-	"github.com/unstablemind/pocket/internal/productivity/obsidian"
-	"github.com/unstablemind/pocket/internal/productivity/todoist"
-	"github.com/unstablemind/pocket/internal/productivity/trello"
+	"github.com/sterlingcodes/alpha-cli/internal/productivity/calendar"
+	"github.com/sterlingcodes/alpha-cli/internal/productivity/gdrive"
+	"github.com/sterlingcodes/alpha-cli/internal/productivity/gsheets"
+	"github.com/sterlingcodes/alpha-cli/internal/productivity/logseq"
+	"github.com/sterlingcodes/alpha-cli/internal/productivity/notion"
+	"github.com/sterlingcodes/alpha-cli/internal/productivity/obsidian"
+	"github.com/sterlingcodes/alpha-cli/internal/productivity/todoist"
+	"github.com/sterlingcodes/alpha-cli/internal/productivity/trello"
 )
 
 func NewProductivityCmd() *cobra.Command {

@@ -10,8 +10,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://sentry.io/api/0"
@@ -99,7 +99,7 @@ func getToken() (string, error) {
 	}
 	if token == "" {
 		return "", output.PrintError("missing_config", "Sentry auth token not configured", map[string]string{
-			"setup": "Run: pocket config set sentry_auth_token YOUR_TOKEN",
+			"setup": "Run: alpha config set sentry_auth_token YOUR_TOKEN",
 		})
 	}
 	return token, nil
@@ -191,7 +191,7 @@ func newIssuesCmd() *cobra.Command {
 			orgSlug := getOrg(org)
 			if orgSlug == "" {
 				return output.PrintError("missing_org", "Organization slug required (use --org or set sentry_org in config)", map[string]string{
-					"setup": "Run: pocket config set sentry_org YOUR_ORG_SLUG",
+					"setup": "Run: alpha config set sentry_org YOUR_ORG_SLUG",
 				})
 			}
 
@@ -345,7 +345,7 @@ func sentryGet(token, apiURL string, result any) error {
 	}
 
 	req.Header.Set("Authorization", "Bearer "+token)
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {

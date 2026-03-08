@@ -8,12 +8,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/unstablemind/pocket/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
 )
 
 func TestMain(m *testing.M) {
 	// Use a temporary config file for tests
-	tmpFile := "/tmp/pocket-twilio-test-config.json"
+	tmpFile := "/tmp/alpha-twilio-test-config.json"
 	os.Setenv("POCKET_CONFIG", tmpFile)
 	defer os.Remove(tmpFile)
 	os.Exit(m.Run())

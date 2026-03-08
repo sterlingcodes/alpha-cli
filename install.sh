@@ -1,15 +1,15 @@
 #!/bin/bash
 set -e
 
-# Pocket CLI Local Installer (for development)
-# For production install, use: curl -fsSL https://raw.githubusercontent.com/KenKaiii/pocket-agent-cli/main/scripts/install.sh | bash
+# Alpha CLI Local Installer (for development)
+# For production install, use: curl -fsSL https://raw.githubusercontent.com/sterlingcodes/alpha-cli/main/scripts/install.sh | bash
 
 INSTALL_DIR="$HOME/.local/bin"
-BINARY_NAME="pocket"
+BINARY_NAME="alpha"
 
 echo ""
 echo "╔═══════════════════════════════════════╗"
-echo "║   Pocket CLI Local Install (Dev)      ║"
+echo "║   Alpha CLI Local Install (Dev)      ║"
 echo "╚═══════════════════════════════════════╝"
 echo ""
 
@@ -18,11 +18,11 @@ mkdir -p "$INSTALL_DIR"
 
 # Build the binary
 echo "Building..."
-go build -ldflags "-s -w" -o "$INSTALL_DIR/$BINARY_NAME" ./cmd/pocket
+go build -ldflags "-s -w" -o "$INSTALL_DIR/$BINARY_NAME" ./cmd/alpha
 
 # Check if install dir is in PATH and add if needed
 PATH_EXPORT="export PATH=\"\$PATH:$INSTALL_DIR\""
-COMMENT="# Pocket CLI"
+COMMENT="# Alpha CLI"
 ADDED_TO=""
 
 add_to_config() {
@@ -51,7 +51,7 @@ fi
 
 echo ""
 echo "════════════════════════════════════════"
-echo "✅ Pocket CLI installed to $INSTALL_DIR/$BINARY_NAME"
+echo "✅ Alpha CLI installed to $INSTALL_DIR/$BINARY_NAME"
 echo "════════════════════════════════════════"
 echo ""
 echo "Restarting shell to apply PATH changes..."
@@ -68,6 +68,6 @@ case "$CURRENT_SHELL" in
         ;;
     *)
         echo "Please restart your terminal, then run:"
-        echo "  pocket commands"
+        echo "  alpha commands"
         ;;
 esac

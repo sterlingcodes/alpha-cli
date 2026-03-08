@@ -12,8 +12,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://discord.com/api/v10"
@@ -304,7 +304,7 @@ func newSendCmd() *cobra.Command {
 
 			if channelID == "" {
 				return output.PrintError("missing_channel", "Channel ID is required (use --channel)", map[string]any{
-					"hint": "Use 'pocket discord channels <guild-id>' to list available channels",
+					"hint": "Use 'alpha discord channels <guild-id>' to list available channels",
 				})
 			}
 
@@ -425,8 +425,8 @@ func getToken() (string, error) {
 	if err != nil || token == "" {
 		return "", output.PrintError("setup_required", "Discord bot token not configured", map[string]any{
 			"missing":   []string{"discord_token"},
-			"setup_cmd": "pocket setup show discord",
-			"hint":      "Run 'pocket setup show discord' for setup instructions",
+			"setup_cmd": "alpha setup show discord",
+			"hint":      "Run 'alpha setup show discord' for setup instructions",
 		})
 	}
 	return token, nil
@@ -451,7 +451,7 @@ func doRequest(method, reqURL, token string, payload any) ([]byte, error) {
 	}
 
 	req.Header.Set("Authorization", "Bot "+token)
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 	if payload != nil {
 		req.Header.Set("Content-Type", "application/json")
 	}

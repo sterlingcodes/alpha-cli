@@ -11,8 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://www.alphavantage.co/query"
@@ -316,8 +316,8 @@ func getAPIKey() (string, error) {
 			"Alpha Vantage API key not configured",
 			map[string]string{
 				"setup":     "Get a free API key at https://www.alphavantage.co/support/#api-key",
-				"configure": "pocket config set alphavantage_key YOUR_API_KEY",
-				"guide":     "pocket setup show alphavantage",
+				"configure": "alpha config set alphavantage_key YOUR_API_KEY",
+				"guide":     "alpha setup show alphavantage",
 			})
 	}
 
@@ -333,7 +333,7 @@ func doRequest(reqURL string) (*http.Response, error) {
 		return nil, output.PrintError("fetch_failed", err.Error(), nil)
 	}
 
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 	req.Header.Set("Accept", "application/json")
 
 	resp, err := httpClient.Do(req)

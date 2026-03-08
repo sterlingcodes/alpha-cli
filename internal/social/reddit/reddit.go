@@ -15,15 +15,15 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var (
 	authURL      = "https://www.reddit.com/api/v1/authorize"
 	tokenURL     = "https://www.reddit.com/api/v1/access_token" //nolint:gosec // OAuth endpoint URL, not a credential
 	apiBaseURL   = "https://oauth.reddit.com"
-	userAgent    = "pocket-cli/1.0"
+	userAgent    = "alpha-cli/1.0"
 	callbackPort = "8766"
 	redirectURI  = "http://localhost:" + callbackPort + "/callback"
 	scopes       = "identity read mysubreddits history"
@@ -89,7 +89,7 @@ func newRedditClient() (*redditClient, error) {
 	}
 
 	return nil, output.PrintError("auth_required",
-		"Reddit OAuth not configured or expired. Run: pocket social reddit auth",
+		"Reddit OAuth not configured or expired. Run: alpha social reddit auth",
 		nil)
 }
 
@@ -187,12 +187,12 @@ func newAuthCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "auth",
 		Short: "Authenticate with Reddit using OAuth 2.0",
-		Long:  "Opens your browser to authorize Pocket CLI with your Reddit account.\nRequires reddit_client_id to be configured first.",
+		Long:  "Opens your browser to authorize Alpha CLI with your Reddit account.\nRequires reddit_client_id to be configured first.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientID, err := config.MustGet("reddit_client_id")
 			if err != nil {
 				return output.PrintError("setup_required",
-					"reddit_client_id not configured. Set it first: pocket config set reddit_client_id <your-client-id>",
+					"reddit_client_id not configured. Set it first: alpha config set reddit_client_id <your-client-id>",
 					map[string]string{
 						"setup": "1. Go to https://www.reddit.com/prefs/apps\n2. Click 'create another app'\n3. Select 'installed app' type\n4. Set redirect URI to " + redirectURI + "\n5. Copy the client ID (shown under app name)",
 					})
@@ -676,7 +676,7 @@ func newPostCmd() *cobra.Command {
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return output.PrintError("not_implemented",
-				"Posting to Reddit requires the 'submit' OAuth scope. Re-run 'pocket social reddit auth' with submit scope enabled, then use Reddit's API.",
+				"Posting to Reddit requires the 'submit' OAuth scope. Re-run 'alpha social reddit auth' with submit scope enabled, then use Reddit's API.",
 				map[string]string{
 					"docs": "https://www.reddit.com/dev/api#POST_api_submit",
 				})

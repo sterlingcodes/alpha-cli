@@ -40,7 +40,7 @@ for PLATFORM in "${PLATFORMS[@]}"; do
     GOOS="$OS" GOARCH="$ARCH" go build \
         -ldflags "-s -w -X main.Version=$VERSION" \
         -o "$BUILD_DIR/$OUTPUT_NAME" \
-        ./cmd/pocket
+        ./cmd/alpha
 
     # Create tarball (or zip for windows)
     cd "$BUILD_DIR"

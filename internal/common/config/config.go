@@ -126,6 +126,11 @@ type Config struct {
 // Path returns the config file path
 func Path() string {
 	configOnce.Do(func() {
+		// Check new env var first, fall back to old one
+		if p := os.Getenv("ALPHA_CONFIG"); p != "" {
+			configPath = p
+			return
+		}
 		if p := os.Getenv("POCKET_CONFIG"); p != "" {
 			configPath = p
 			return
@@ -133,10 +138,22 @@ func Path() string {
 
 		home, err := os.UserHomeDir()
 		if err != nil {
-			configPath = ".pocket.json"
+			configPath = ".alpha.json"
 			return
 		}
-		configPath = filepath.Join(home, ".config", "pocket", "config.json")
+
+		newPath := filepath.Join(home, ".config", "alpha", "config.json")
+		oldPath := filepath.Join(home, ".config", "pocket", "config.json")
+
+		// Migrate: if new path doesn't exist but old one does, copy it
+		if _, err := os.Stat(newPath); os.IsNotExist(err) {
+			if data, err := os.ReadFile(oldPath); err == nil {
+				_ = os.MkdirAll(filepath.Dir(newPath), 0o700)
+				_ = os.WriteFile(newPath, data, 0o600)
+			}
+		}
+
+		configPath = newPath
 	})
 	return configPath
 }
@@ -607,7 +624,7 @@ func MustGet(key string) (string, error) {
 		return "", err
 	}
 	if val == "" {
-		return "", errors.New("config key not set: " + key + " (use: pocket config set " + key + " <value>)")
+		return "", errors.New("config key not set: " + key + " (use: alpha config set " + key + " <value>)")
 	}
 	return val, nil
 }

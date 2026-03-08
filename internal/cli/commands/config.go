@@ -3,15 +3,15 @@ package commands
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 func NewConfigCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "config",
 		Short: "Configuration management",
-		Long:  `Manage pocket configuration: API keys, defaults, etc.`,
+		Long:  `Manage alpha configuration: API keys, defaults, etc.`,
 	}
 
 	cmd.AddCommand(&cobra.Command{

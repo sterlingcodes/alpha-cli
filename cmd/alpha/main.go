@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/unstablemind/pocket/internal/cli"
+	"github.com/sterlingcodes/alpha-cli/internal/cli"
 )
 
 func main() {

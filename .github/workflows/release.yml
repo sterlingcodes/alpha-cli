@@ -30,30 +30,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - name: Set up Go
+        uses: actions/setup-go@v5
         with:
-          go-version-file: go.mod
+          go-version: '1.21'
 
       - name: Build
         env:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
         run: |
-          VERSION=${GITHUB_REF_NAME}
-          BINARY_NAME="alpha"
+          VERSION=${GITHUB_REF#refs/tags/}
+          BINARY_NAME=alpha
           if [ "$GOOS" = "windows" ]; then
-            BINARY_NAME="alpha.exe"
+            BINARY_NAME="${BINARY_NAME.exe"
           fi
-          go build -ldflags "-s -w -X main.Version=$VERSION" -o "$BINARY_NAME" ./cmd/pocket
+          go build -ldflags "-s -w -X main.Version=$VERSION" -o $BINARY_NAME ./cmd/alpha
 
-          PLATFORM="${GOOS}_${GOARCH}"
-          if [ "$GOOS" = "windows" ]; then
-            zip "alpha_${PLATFORM}.zip" "$BINARY_NAME"
-          else
-            tar -czf "alpha_${PLATFORM}.tar.gz" "$BINARY_NAME"
-          fi
+      - name: Package (Unix)
+        if: matrix.goos != 'windows'
+        run: |
+          tar -czf alpha_${{ matrix.goos }}_${{ matrix.goarch }}.tar.gz alpha
+          rm alpha
 
-      - uses: actions/upload-artifact@v4
+      - name: Package (Windows)
+        if: matrix.goos == 'windows'
+        run: |
+          zip alpha_${{ matrix.goos }}_${{ matrix.goarch }}.zip alpha.exe
+          rm alpha.exe
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
           name: alpha_${{ matrix.goos }}_${{ matrix.goarch }}
           path: alpha_*
@@ -62,17 +69,21 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
         with:
           path: dist
           merge-multiple: true
 
-      - name: Create checksums
-        working-directory: dist
-        run: sha256sum * > checksums.txt
+      - name: Generate checksums
+        run: |
+          cd dist
+          sha256sum * > checksums.txt
 
-      - name: Create release
-        uses: softprops/action-gh-release@v2
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
         with:
           files: dist/*
           generate_release_notes: true

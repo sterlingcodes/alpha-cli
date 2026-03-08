@@ -19,8 +19,8 @@ import (
 	"github.com/emersion/go-imap/client"
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 // Email is LLM-friendly email output
@@ -715,8 +715,8 @@ func checkEmailConfig() error {
 	if len(missing) > 0 {
 		return output.PrintError("setup_required", "Email not configured", map[string]any{
 			"missing":   missing,
-			"setup_cmd": "pocket setup show email",
-			"hint":      "Run 'pocket setup show email' for setup instructions",
+			"setup_cmd": "alpha setup show email",
+			"hint":      "Run 'alpha setup show email' for setup instructions",
 		})
 	}
 	return nil

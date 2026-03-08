@@ -4,18 +4,20 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"math"
 	"net/http"
 	"net/url"
 	"time"
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var (
-	httpClient = &http.Client{Timeout: 30 * time.Second}
-	baseURL    = "https://wttr.in"
+	httpClient  = &http.Client{Timeout: 30 * time.Second}
+	geocodeURL  = "https://geocoding-api.open-meteo.com"
+	forecastURL = "https://api.open-meteo.com"
 )
 
 // Current is LLM-friendly current weather
@@ -50,6 +52,62 @@ type Forecast struct {
 type Weather struct {
 	Current  Current    `json:"current"`
 	Forecast []Forecast `json:"forecast,omitempty"`
+}
+
+// WMO weather code descriptions
+var wmoDescriptions = map[int]string{
+	0:  "Clear sky",
+	1:  "Mainly clear",
+	2:  "Partly cloudy",
+	3:  "Overcast",
+	45: "Fog",
+	48: "Rime fog",
+	51: "Light drizzle",
+	53: "Moderate drizzle",
+	55: "Dense drizzle",
+	56: "Light freezing drizzle",
+	57: "Dense freezing drizzle",
+	61: "Slight rain",
+	63: "Moderate rain",
+	65: "Heavy rain",
+	66: "Light freezing rain",
+	67: "Heavy freezing rain",
+	71: "Slight snow",
+	73: "Moderate snow",
+	75: "Heavy snow",
+	77: "Snow grains",
+	80: "Slight rain showers",
+	81: "Moderate rain showers",
+	82: "Violent rain showers",
+	85: "Slight snow showers",
+	86: "Heavy snow showers",
+	95: "Thunderstorm",
+	96: "Thunderstorm with slight hail",
+	99: "Thunderstorm with heavy hail",
+}
+
+func wmoDescription(code int) string {
+	if desc, ok := wmoDescriptions[code]; ok {
+		return desc
+	}
+	return "Unknown"
+}
+
+func degreesToCardinal(deg float64) string {
+	directions := []string{
+		"N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
+		"S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW",
+	}
+	idx := int(math.Round(deg/22.5)) % 16
+	return directions[idx]
+}
+
+func celsiusToFahrenheit(c float64) int {
+	return int(math.Round(c*9.0/5.0 + 32))
+}
+
+func kphToMph(kph float64) int {
+	return int(math.Round(kph / 1.609))
 }
 
 func NewCmd() *cobra.Command {
@@ -97,154 +155,147 @@ func newForecastCmd() *cobra.Command {
 	return cmd
 }
 
+type geocodeResult struct {
+	Results []struct {
+		Name      string  `json:"name"`
+		Country   string  `json:"country"`
+		Latitude  float64 `json:"latitude"`
+		Longitude float64 `json:"longitude"`
+	} `json:"results"`
+}
+
+type forecastResult struct {
+	Current struct {
+		Temperature      float64 `json:"temperature_2m"`
+		ApparentTemp     float64 `json:"apparent_temperature"`
+		WeatherCode      int     `json:"weather_code"`
+		Humidity         int     `json:"relative_humidity_2m"`
+		WindSpeed        float64 `json:"wind_speed_10m"`
+		WindDirection    float64 `json:"wind_direction_10m"`
+		Precipitation    float64 `json:"precipitation"`
+		Visibility       float64 `json:"visibility"`
+		UVIndex          float64 `json:"uv_index"`
+	} `json:"current"`
+	Daily struct {
+		Time              []string  `json:"time"`
+		WeatherCode       []int     `json:"weather_code"`
+		TempMax           []float64 `json:"temperature_2m_max"`
+		TempMin           []float64 `json:"temperature_2m_min"`
+		PrecipProbMax     []int     `json:"precipitation_probability_max"`
+		HumidityMax       []int     `json:"relative_humidity_2m_max"`
+	} `json:"daily"`
+}
+
 //nolint:gocyclo // complex but clear sequential logic
 func fetchWeather(location string, forecastDays int) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	// Using wttr.in JSON API
-	reqURL := fmt.Sprintf("%s/%s?format=j1", baseURL, url.PathEscape(location))
+	// Step 1: Geocode the location
+	geoURL := fmt.Sprintf("%s/v1/search?name=%s&count=1", geocodeURL, url.QueryEscape(location))
 
-	req, err := http.NewRequestWithContext(ctx, "GET", reqURL, http.NoBody)
+	geoReq, err := http.NewRequestWithContext(ctx, "GET", geoURL, http.NoBody)
 	if err != nil {
 		return output.PrintError("fetch_failed", err.Error(), nil)
 	}
 
-	req.Header.Set("User-Agent", "curl/7.68.0")
-
-	resp, err := httpClient.Do(req)
+	geoResp, err := httpClient.Do(geoReq)
 	if err != nil {
 		return output.PrintError("fetch_failed", err.Error(), nil)
 	}
-	defer resp.Body.Close()
+	defer geoResp.Body.Close()
 
-	if resp.StatusCode >= 400 {
-		return output.PrintError("fetch_failed", fmt.Sprintf("HTTP %d", resp.StatusCode), nil)
+	if geoResp.StatusCode >= 400 {
+		return output.PrintError("fetch_failed", fmt.Sprintf("geocode HTTP %d", geoResp.StatusCode), nil)
 	}
 
-	var data struct {
-		CurrentCondition []struct {
-			TempC          string `json:"temp_C"`
-			TempF          string `json:"temp_F"`
-			FeelsLikeC     string `json:"FeelsLikeC"`
-			FeelsLikeF     string `json:"FeelsLikeF"`
-			Humidity       string `json:"humidity"`
-			WindspeedKmph  string `json:"windspeedKmph"`
-			WindspeedMiles string `json:"windspeedMiles"`
-			WindDir16Point string `json:"winddir16Point"`
-			Visibility     string `json:"visibility"`
-			UVIndex        string `json:"uvIndex"`
-			WeatherDesc    []struct {
-				Value string `json:"value"`
-			} `json:"weatherDesc"`
-		} `json:"current_condition"`
-		NearestArea []struct {
-			AreaName []struct {
-				Value string `json:"value"`
-			} `json:"areaName"`
-			Country []struct {
-				Value string `json:"value"`
-			} `json:"country"`
-		} `json:"nearest_area"`
-		Weather []struct {
-			Date     string `json:"date"`
-			MaxTempC string `json:"maxtempC"`
-			MinTempC string `json:"mintempC"`
-			MaxTempF string `json:"maxtempF"`
-			MinTempF string `json:"mintempF"`
-			Hourly   []struct {
-				ChanceOfRain string `json:"chanceofrain"`
-				Humidity     string `json:"humidity"`
-				WeatherDesc  []struct {
-					Value string `json:"value"`
-				} `json:"weatherDesc"`
-			} `json:"hourly"`
-		} `json:"weather"`
-	}
-
-	if err := json.NewDecoder(resp.Body).Decode(&data); err != nil {
+	var geo geocodeResult
+	if err := json.NewDecoder(geoResp.Body).Decode(&geo); err != nil {
 		return output.PrintError("parse_failed", err.Error(), nil)
 	}
 
-	if len(data.CurrentCondition) == 0 {
+	if len(geo.Results) == 0 {
 		return output.PrintError("not_found", "Location not found: "+location, nil)
 	}
 
-	cc := data.CurrentCondition[0]
+	place := geo.Results[0]
+	loc := place.Name + ", " + place.Country
 
-	// Build location string
-	loc := location
-	if len(data.NearestArea) > 0 {
-		area := data.NearestArea[0]
-		if len(area.AreaName) > 0 && len(area.Country) > 0 {
-			loc = area.AreaName[0].Value + ", " + area.Country[0].Value
-		}
+	// Step 2: Fetch forecast data
+	days := forecastDays
+	if days < 1 {
+		days = 1
+	}
+	if days > 3 {
+		days = 3
 	}
 
-	condition := ""
-	if len(cc.WeatherDesc) > 0 {
-		condition = cc.WeatherDesc[0].Value
+	fcURL := fmt.Sprintf(
+		"%s/v1/forecast?latitude=%.4f&longitude=%.4f"+
+			"&current=temperature_2m,apparent_temperature,weather_code,relative_humidity_2m,wind_speed_10m,wind_direction_10m,precipitation,visibility,uv_index"+
+			"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,relative_humidity_2m_max"+
+			"&temperature_unit=celsius&wind_speed_unit=kmh&forecast_days=%d&timezone=auto",
+		forecastURL, place.Latitude, place.Longitude, days+1, // +1 to include today
+	)
+
+	fcReq, err := http.NewRequestWithContext(ctx, "GET", fcURL, http.NoBody)
+	if err != nil {
+		return output.PrintError("fetch_failed", err.Error(), nil)
+	}
+
+	fcResp, err := httpClient.Do(fcReq)
+	if err != nil {
+		return output.PrintError("fetch_failed", err.Error(), nil)
+	}
+	defer fcResp.Body.Close()
+
+	if fcResp.StatusCode >= 400 {
+		return output.PrintError("fetch_failed", fmt.Sprintf("forecast HTTP %d", fcResp.StatusCode), nil)
+	}
+
+	var fc forecastResult
+	if err := json.NewDecoder(fcResp.Body).Decode(&fc); err != nil {
+		return output.PrintError("parse_failed", err.Error(), nil)
 	}
 
 	weather := Weather{
 		Current: Current{
 			Location:   loc,
-			Condition:  condition,
-			TempC:      atoi(cc.TempC),
-			TempF:      atoi(cc.TempF),
-			FeelsLikeC: atoi(cc.FeelsLikeC),
-			FeelsLikeF: atoi(cc.FeelsLikeF),
-			Humidity:   atoi(cc.Humidity),
-			WindKph:    atoi(cc.WindspeedKmph),
-			WindMph:    atoi(cc.WindspeedMiles),
-			WindDir:    cc.WindDir16Point,
-			Visibility: atoi(cc.Visibility),
-			UV:         atoi(cc.UVIndex),
+			Condition:  wmoDescription(fc.Current.WeatherCode),
+			TempC:      int(math.Round(fc.Current.Temperature)),
+			TempF:      celsiusToFahrenheit(fc.Current.Temperature),
+			FeelsLikeC: int(math.Round(fc.Current.ApparentTemp)),
+			FeelsLikeF: celsiusToFahrenheit(fc.Current.ApparentTemp),
+			Humidity:   fc.Current.Humidity,
+			WindKph:    int(math.Round(fc.Current.WindSpeed)),
+			WindMph:    kphToMph(fc.Current.WindSpeed),
+			WindDir:    degreesToCardinal(fc.Current.WindDirection),
+			Visibility: int(math.Round(fc.Current.Visibility / 1000)),
+			UV:         int(math.Round(fc.Current.UVIndex)),
 		},
 	}
 
-	// Add forecast if requested
-	if forecastDays > 0 && len(data.Weather) > 0 {
+	// Add forecast if requested (skip index 0 = today)
+	if forecastDays > 0 && len(fc.Daily.Time) > 1 {
 		limit := forecastDays
-		if limit > len(data.Weather) {
-			limit = len(data.Weather)
+		available := len(fc.Daily.Time) - 1 // exclude today
+		if limit > available {
+			limit = available
 		}
 
-		for i := 0; i < limit; i++ {
-			day := data.Weather[i]
-
-			// Get average chance of rain and humidity from hourly data
-			chanceRain := 0
-			humidity := 0
-			condition := ""
-			if len(day.Hourly) > 0 {
-				// Use midday values
-				mid := len(day.Hourly) / 2
-				chanceRain = atoi(day.Hourly[mid].ChanceOfRain)
-				humidity = atoi(day.Hourly[mid].Humidity)
-				if len(day.Hourly[mid].WeatherDesc) > 0 {
-					condition = day.Hourly[mid].WeatherDesc[0].Value
-				}
-			}
-
+		for i := 1; i <= limit; i++ {
 			weather.Forecast = append(weather.Forecast, Forecast{
-				Date:       day.Date,
-				Condition:  condition,
-				MaxC:       atoi(day.MaxTempC),
-				MinC:       atoi(day.MinTempC),
-				MaxF:       atoi(day.MaxTempF),
-				MinF:       atoi(day.MinTempF),
-				ChanceRain: chanceRain,
-				Humidity:   humidity,
+				Date:       fc.Daily.Time[i],
+				Condition:  wmoDescription(fc.Daily.WeatherCode[i]),
+				MaxC:       int(math.Round(fc.Daily.TempMax[i])),
+				MinC:       int(math.Round(fc.Daily.TempMin[i])),
+				MaxF:       celsiusToFahrenheit(fc.Daily.TempMax[i]),
+				MinF:       celsiusToFahrenheit(fc.Daily.TempMin[i]),
+				ChanceRain: fc.Daily.PrecipProbMax[i],
+				Humidity:   fc.Daily.HumidityMax[i],
 			})
 		}
 	}
 
 	return output.Print(weather)
-}
-
-func atoi(s string) int {
-	var n int
-	_, _ = fmt.Sscanf(s, "%d", &n)
-	return n
 }

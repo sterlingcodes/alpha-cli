@@ -40,7 +40,7 @@ If there are issues to fix, spawn agents in parallel using the Task tool. Use a 
 
 1. **format-fixer agent**: Fix all formatting issues
    - Run `gofmt -s -w .` to auto-format
-   - Run `goimports -w -local github.com/unstablemind/pocket .` to fix imports
+   - Run `goimports -w -local github.com/sterlingcodes/alpha-cli .` to fix imports
 
 2. **lint-fixer agent**: Fix lint errors that can be auto-fixed
    - Address errcheck issues (handle returned errors)

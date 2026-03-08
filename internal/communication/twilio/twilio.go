@@ -13,8 +13,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var httpClient = &http.Client{Timeout: 30 * time.Second}
@@ -458,8 +458,8 @@ func getTwilioConfig() (sid, token, phone string, err error) {
 	if len(missing) > 0 {
 		return "", "", "", output.PrintError("setup_required", "Twilio not configured", map[string]any{
 			"missing":   missing,
-			"setup_cmd": "pocket setup show twilio",
-			"hint":      "Run 'pocket setup show twilio' for setup instructions",
+			"setup_cmd": "alpha setup show twilio",
+			"hint":      "Run 'alpha setup show twilio' for setup instructions",
 		})
 	}
 

@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/unstablemind/pocket/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
 )
 
 func TestNewCmd(t *testing.T) {

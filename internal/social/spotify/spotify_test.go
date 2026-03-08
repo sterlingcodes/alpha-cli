@@ -112,8 +112,8 @@ func TestDoRequest(t *testing.T) {
 		}
 
 		// Check User-Agent
-		if r.Header.Get("User-Agent") != "Pocket-CLI/1.0" {
-			t.Errorf("expected User-Agent 'Pocket-CLI/1.0', got %q", r.Header.Get("User-Agent"))
+		if r.Header.Get("User-Agent") != "Alpha-CLI/1.0" {
+			t.Errorf("expected User-Agent 'Alpha-CLI/1.0', got %q", r.Header.Get("User-Agent"))
 		}
 
 		// Return mock track data

@@ -11,8 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 // Graph represents a Logseq graph
@@ -89,7 +89,7 @@ func getGraphPath(graphName string) (graphPath, format string, err error) {
 		return "", "", err
 	}
 	if graphPath == "" {
-		return "", "", fmt.Errorf("logseq_graph not configured (use: pocket config set logseq_graph /path/to/graph)")
+		return "", "", fmt.Errorf("logseq_graph not configured (use: alpha config set logseq_graph /path/to/graph)")
 	}
 
 	format, _ = config.Get("logseq_format")
@@ -143,7 +143,7 @@ func newGraphsCmd() *cobra.Command {
 			if len(graphs) == 0 {
 				return output.Print(map[string]any{
 					"graphs":  []Graph{},
-					"message": "No graphs configured. Set with: pocket config set logseq_graph /path/to/graph",
+					"message": "No graphs configured. Set with: alpha config set logseq_graph /path/to/graph",
 				})
 			}
 

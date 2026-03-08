@@ -11,7 +11,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://pypi.org"
@@ -93,7 +93,7 @@ func newSearchCmd() *cobra.Command {
 			// If direct lookup fails, return a helpful message
 			return output.Print(map[string]any{
 				"note":    "PyPI search API is limited. Try exact package name or use: pip search",
-				"suggest": fmt.Sprintf("pocket dev pypi info %s", args[0]),
+				"suggest": fmt.Sprintf("alpha dev pypi info %s", args[0]),
 				"web":     reqURL,
 			})
 		},
@@ -336,7 +336,7 @@ func pypiGet(url string, result any) error {
 		return err
 	}
 
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 	req.Header.Set("Accept", "application/json")
 
 	resp, err := httpClient.Do(req)

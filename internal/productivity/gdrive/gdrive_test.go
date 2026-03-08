@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	googleauth "github.com/unstablemind/pocket/internal/common/google"
+	googleauth "github.com/sterlingcodes/alpha-cli/internal/common/google"
 )
 
 func TestNewCmd(t *testing.T) {

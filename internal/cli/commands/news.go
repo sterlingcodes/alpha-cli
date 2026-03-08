@@ -3,9 +3,9 @@ package commands
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/news/feeds"
-	"github.com/unstablemind/pocket/internal/news/hackernews"
-	"github.com/unstablemind/pocket/internal/news/newsapi"
+	"github.com/sterlingcodes/alpha-cli/internal/news/feeds"
+	"github.com/sterlingcodes/alpha-cli/internal/news/hackernews"
+	"github.com/sterlingcodes/alpha-cli/internal/news/newsapi"
 )
 
 func NewNewsCmd() *cobra.Command {

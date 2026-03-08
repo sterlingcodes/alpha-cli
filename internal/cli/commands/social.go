@@ -3,11 +3,11 @@ package commands
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/social/mastodon"
-	"github.com/unstablemind/pocket/internal/social/reddit"
-	"github.com/unstablemind/pocket/internal/social/spotify"
-	"github.com/unstablemind/pocket/internal/social/twitter"
-	"github.com/unstablemind/pocket/internal/social/youtube"
+	"github.com/sterlingcodes/alpha-cli/internal/social/mastodon"
+	"github.com/sterlingcodes/alpha-cli/internal/social/reddit"
+	"github.com/sterlingcodes/alpha-cli/internal/social/spotify"
+	"github.com/sterlingcodes/alpha-cli/internal/social/twitter"
+	"github.com/sterlingcodes/alpha-cli/internal/social/youtube"
 )
 
 func NewSocialCmd() *cobra.Command {

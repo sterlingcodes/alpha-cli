@@ -11,7 +11,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var htmlTagRe = regexp.MustCompile(`<[^>]*>`)
@@ -93,7 +93,7 @@ func NewCmd() *cobra.Command {
 					map[string]string{
 						"current_platform": runtime.GOOS,
 						"required":         "darwin (macOS)",
-						"suggestion":       "Use 'pocket comms email' for cross-platform IMAP/SMTP email",
+						"suggestion":       "Use 'alpha comms email' for cross-platform IMAP/SMTP email",
 					})
 			}
 			return nil

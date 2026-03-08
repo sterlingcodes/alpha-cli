@@ -12,8 +12,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var (
@@ -93,10 +93,10 @@ func NewCmd() *cobra.Command {
 func getAPIKey() (string, error) {
 	key, err := config.Get("virustotal_api_key")
 	if err != nil {
-		return "", fmt.Errorf("VirusTotal API key not configured. Set it with: pocket config set virustotal_api_key <key>")
+		return "", fmt.Errorf("VirusTotal API key not configured. Set it with: alpha config set virustotal_api_key <key>")
 	}
 	if key == "" {
-		return "", fmt.Errorf("VirusTotal API key not configured. Set it with: pocket config set virustotal_api_key <key>")
+		return "", fmt.Errorf("VirusTotal API key not configured. Set it with: alpha config set virustotal_api_key <key>")
 	}
 	return key, nil
 }
@@ -113,7 +113,7 @@ func doRequest(ctx context.Context, method, endpoint string, body io.Reader, con
 	}
 
 	req.Header.Set("x-apikey", apiKey)
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 	if contentType != "" {
 		req.Header.Set("Content-Type", contentType)
 	}

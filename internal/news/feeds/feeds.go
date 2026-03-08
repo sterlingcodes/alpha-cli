@@ -13,7 +13,7 @@ import (
 	"github.com/mmcdole/gofeed"
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var (
@@ -317,7 +317,7 @@ func timeAgo(t time.Time) string {
 
 func feedsFilePath() string {
 	home, _ := os.UserHomeDir()
-	return filepath.Join(home, ".config", "pocket", "feeds.json")
+	return filepath.Join(home, ".config", "alpha", "feeds.json")
 }
 
 func loadSavedFeeds() ([]SavedFeed, error) {

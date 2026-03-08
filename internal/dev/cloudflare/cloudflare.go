@@ -11,8 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://api.cloudflare.com/client/v4"
@@ -373,7 +373,7 @@ func getToken() (string, error) {
 	}
 	if token == "" {
 		return "", output.PrintError("missing_config", "Cloudflare token not configured", map[string]string{
-			"setup":       "Run: pocket config set cloudflare_token <your-api-token>",
+			"setup":       "Run: alpha config set cloudflare_token <your-api-token>",
 			"docs":        "Create an API token at: https://dash.cloudflare.com/profile/api-tokens",
 			"permissions": "Required permissions depend on commands: Zone:Read for zones/dns, Cache Purge for purge, Analytics:Read for analytics",
 		})

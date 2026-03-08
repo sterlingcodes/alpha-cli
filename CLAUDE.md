@@ -1,15 +1,15 @@
-# Pocket Agent CLI
+# Alpha CLI
 
 Universal CLI tool for LLM agents to interact with external services. Provides terminal-based access to social media, email, news, productivity tools, knowledge bases, and dev utilities through a unified interface.
 
 ## Project Structure
 
 ```
-cmd/pocket/           # Entry point (main.go)
+cmd/alpha/           # Entry point (main.go)
 internal/
   ├── cli/            # CLI framework and command definitions
   │   └── commands/   # All subcommands (social, news, dev, etc.)
-  ├── common/config/  # Configuration management (~/.config/pocket/)
+  ├── common/config/  # Configuration management (~/.config/alpha/)
   ├── social/         # Twitter, Reddit, Mastodon, YouTube
   ├── communication/  # Email (IMAP/SMTP), Slack, Discord, Telegram
   ├── news/           # HackerNews, NewsAPI, RSS feeds
@@ -55,6 +55,6 @@ golangci-lint run ./...
 ## Key Patterns
 
 - All commands return JSON by default (LLM-friendly)
-- Credentials stored in `~/.config/pocket/config.json`
+- Credentials stored in `~/.config/alpha/config.json`
 - Use `output.PrintError("code", "message", details)` for errors
-- Setup guides via `pocket setup show <service>`
+- Setup guides via `alpha setup show <service>`

@@ -3,8 +3,8 @@ package cli
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/cli/commands"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/cli/commands"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var (
@@ -14,9 +14,9 @@ var (
 
 func NewRootCmd() *cobra.Command {
 	root := &cobra.Command{
-		Use:   "pocket",
+		Use:   "alpha",
 		Short: "Universal CLI for LLM agents",
-		Long:  `Pocket is an all-in-one CLI tool designed for terminal agents to access social media, APIs, email, and more.`,
+		Long:  `Alpha is an all-in-one CLI tool designed for terminal agents to access social media, APIs, email, and more.`,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			output.SetFormat(outputFormat)
 			output.SetVerbose(verbose)

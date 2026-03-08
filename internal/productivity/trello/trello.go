@@ -11,8 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://api.trello.com/1"
@@ -282,8 +282,8 @@ func getClient() (*Client, error) {
 				"2. Click 'New' to create a new Power-Up (or use existing)\n" +
 				"3. Get your API key from the Power-Up settings\n" +
 				"4. Generate a token by clicking 'Token' link on the API key page\n" +
-				"5. Run: pocket config set trello_key <your-api-key>\n" +
-				"6. Run: pocket config set trello_token <your-token>",
+				"5. Run: alpha config set trello_key <your-api-key>\n" +
+				"6. Run: alpha config set trello_token <your-token>",
 		})
 	}
 
@@ -298,7 +298,7 @@ func getClient() (*Client, error) {
 				"2. Select your Power-Up and find your API key\n" +
 				"3. Click 'Token' link to generate an access token\n" +
 				"4. Authorize the token for your account\n" +
-				"5. Run: pocket config set trello_token <your-token>",
+				"5. Run: alpha config set trello_token <your-token>",
 		})
 	}
 

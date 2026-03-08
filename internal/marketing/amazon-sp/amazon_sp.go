@@ -11,8 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://sellingpartnerapi-na.amazon.com"
@@ -115,7 +115,7 @@ func newClient() (*spClient, error) {
 	}
 	if clientID == "" {
 		return nil, output.PrintError("missing_config", "Amazon SP-API client ID not configured", map[string]string{
-			"setup": "Run: pocket setup show amazon-sp",
+			"setup": "Run: alpha setup show amazon-sp",
 		})
 	}
 
@@ -125,7 +125,7 @@ func newClient() (*spClient, error) {
 	}
 	if clientSecret == "" {
 		return nil, output.PrintError("missing_config", "Amazon SP-API client secret not configured", map[string]string{
-			"setup": "Run: pocket setup show amazon-sp",
+			"setup": "Run: alpha setup show amazon-sp",
 		})
 	}
 
@@ -135,7 +135,7 @@ func newClient() (*spClient, error) {
 	}
 	if refreshToken == "" {
 		return nil, output.PrintError("missing_config", "Amazon SP-API refresh token not configured", map[string]string{
-			"setup": "Run: pocket setup show amazon-sp",
+			"setup": "Run: alpha setup show amazon-sp",
 		})
 	}
 
@@ -145,7 +145,7 @@ func newClient() (*spClient, error) {
 	}
 	if sellerID == "" {
 		return nil, output.PrintError("missing_config", "Amazon SP-API seller ID not configured", map[string]string{
-			"setup": "Run: pocket setup show amazon-sp",
+			"setup": "Run: alpha setup show amazon-sp",
 		})
 	}
 
@@ -246,7 +246,7 @@ func (c *spClient) doGet(endpoint string, params url.Values) (map[string]any, er
 		return nil, err
 	}
 	req.Header.Set("x-amz-access-token", c.accessToken)
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {
@@ -293,7 +293,7 @@ func (c *spClient) doPost(endpoint string, payload any) (map[string]any, error) 
 	}
 	req.Header.Set("x-amz-access-token", c.accessToken)
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {

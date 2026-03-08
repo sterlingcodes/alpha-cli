@@ -1,6 +1,6 @@
 # Binaries
 /build/
-/pocket
+/alpha
 *.exe
 *.exe~
 *.dll
@@ -32,4 +32,4 @@ go.work
 Thumbs.db
 
 # Config (may contain secrets)
-.pocket.json
+.alpha.json

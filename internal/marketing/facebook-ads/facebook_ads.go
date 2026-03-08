@@ -12,8 +12,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://graph.facebook.com/v24.0"
@@ -121,7 +121,7 @@ func newClient() (*fbClient, error) {
 	}
 	if token == "" {
 		return nil, output.PrintError("missing_config", "Facebook Ads token not configured", map[string]string{
-			"setup": "Run: pocket setup show facebook-ads",
+			"setup": "Run: alpha setup show facebook-ads",
 		})
 	}
 
@@ -131,7 +131,7 @@ func newClient() (*fbClient, error) {
 	}
 	if accountID == "" {
 		return nil, output.PrintError("missing_config", "Facebook Ads account ID not configured", map[string]string{
-			"setup": "Run: pocket config set facebook_ads_account_id YOUR_AD_ACCOUNT_ID",
+			"setup": "Run: alpha config set facebook_ads_account_id YOUR_AD_ACCOUNT_ID",
 		})
 	}
 
@@ -160,7 +160,7 @@ func (c *fbClient) doGet(endpoint string, params url.Values) (map[string]any, er
 		return nil, err
 	}
 	req.Header.Set("Authorization", "Bearer "+c.token)
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {
@@ -203,7 +203,7 @@ func (c *fbClient) doPost(endpoint string, payload map[string]string) (map[strin
 	}
 	req.Header.Set("Authorization", "Bearer "+c.token)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("User-Agent", "Pocket-CLI/1.0")
+	req.Header.Set("User-Agent", "Alpha-CLI/1.0")
 
 	resp, err := httpClient.Do(req)
 	if err != nil {

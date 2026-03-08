@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	googleauth "github.com/unstablemind/pocket/internal/common/google"
+	googleauth "github.com/sterlingcodes/alpha-cli/internal/common/google"
 )
 
 func newTestClient(srv *httptest.Server) *googleauth.Client {

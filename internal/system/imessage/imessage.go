@@ -14,7 +14,7 @@ import (
 	_ "github.com/mattn/go-sqlite3" // sqlite3 driver registration
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 // Chat represents an iMessage conversation
@@ -438,7 +438,7 @@ The contact can be a phone number, email, or name as it appears in your chats.`,
 					"contact":  contact,
 					"messages": []Message{},
 					"count":    0,
-					"hint":     "No messages found. Try using the exact phone number or email as shown in 'pocket system imessage chats'",
+					"hint":     "No messages found. Try using the exact phone number or email as shown in 'alpha system imessage chats'",
 				})
 			}
 

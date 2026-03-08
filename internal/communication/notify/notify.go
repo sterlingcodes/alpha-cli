@@ -11,8 +11,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var httpClient = &http.Client{Timeout: 30 * time.Second}
@@ -60,9 +60,9 @@ No authentication required for public topics.
 Subscribe to your topic at https://ntfy.sh/<topic> or via the ntfy app.
 
 Examples:
-  pocket notify ntfy mytopic "Hello World"
-  pocket notify ntfy alerts "Server down!" --title "Alert" --priority 5
-  pocket notify ntfy updates "New release" --tags "tada,release"`,
+  alpha notify ntfy mytopic "Hello World"
+  alpha notify ntfy alerts "Server down!" --title "Alert" --priority 5
+  alpha notify ntfy updates "New release" --tags "tada,release"`,
 		Args: cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			topic := args[0]
@@ -94,9 +94,9 @@ Get your API token at https://pushover.net/apps/build
 Get your user key at https://pushover.net/
 
 Examples:
-  pocket notify pushover "Hello World"
-  pocket notify pushover "Alert!" --title "Warning" --priority 1
-  pocket notify pushover "Alarm" --sound siren --priority 2`,
+  alpha notify pushover "Hello World"
+  alpha notify pushover "Alert!" --title "Warning" --priority 1
+  alpha notify pushover "Alarm" --sound siren --priority 2`,
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			message := args[0]
@@ -105,9 +105,9 @@ Examples:
 			if err != nil {
 				return output.PrintError("config_missing", "Pushover API token not configured", map[string]any{
 					"key":       "pushover_token",
-					"hint":      "Run: pocket config set pushover_token <your-api-token>",
+					"hint":      "Run: alpha config set pushover_token <your-api-token>",
 					"get_key":   "https://pushover.net/apps/build",
-					"setup_cmd": "pocket setup show pushover",
+					"setup_cmd": "alpha setup show pushover",
 				})
 			}
 
@@ -115,9 +115,9 @@ Examples:
 			if err != nil {
 				return output.PrintError("config_missing", "Pushover user key not configured", map[string]any{
 					"key":       "pushover_user",
-					"hint":      "Run: pocket config set pushover_user <your-user-key>",
+					"hint":      "Run: alpha config set pushover_user <your-user-key>",
 					"get_key":   "https://pushover.net/",
-					"setup_cmd": "pocket setup show pushover",
+					"setup_cmd": "alpha setup show pushover",
 				})
 			}
 

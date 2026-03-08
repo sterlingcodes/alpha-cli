@@ -9,8 +9,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/common/config"
-	"github.com/unstablemind/pocket/pkg/output"
+	"github.com/sterlingcodes/alpha-cli/internal/common/config"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://api.vercel.com"
@@ -254,7 +254,7 @@ func getToken() (string, error) {
 	}
 	if token == "" {
 		return "", output.PrintError("missing_config", "vercel_token not configured", map[string]string{
-			"setup": "Get your token from https://vercel.com/account/tokens then run: pocket config set vercel_token <token>",
+			"setup": "Get your token from https://vercel.com/account/tokens then run: alpha config set vercel_token <token>",
 		})
 	}
 	return token, nil

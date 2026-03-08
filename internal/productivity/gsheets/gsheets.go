@@ -9,8 +9,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	googleauth "github.com/unstablemind/pocket/internal/common/google"
-	"github.com/unstablemind/pocket/pkg/output"
+	googleauth "github.com/sterlingcodes/alpha-cli/internal/common/google"
+	"github.com/sterlingcodes/alpha-cli/pkg/output"
 )
 
 var baseURL = "https://sheets.googleapis.com/v4/spreadsheets"

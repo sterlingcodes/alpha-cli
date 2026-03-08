@@ -3,9 +3,9 @@ package commands
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/unstablemind/pocket/internal/knowledge/dictionary"
-	"github.com/unstablemind/pocket/internal/knowledge/stackexchange"
-	"github.com/unstablemind/pocket/internal/knowledge/wikipedia"
+	"github.com/sterlingcodes/alpha-cli/internal/knowledge/dictionary"
+	"github.com/sterlingcodes/alpha-cli/internal/knowledge/stackexchange"
+	"github.com/sterlingcodes/alpha-cli/internal/knowledge/wikipedia"
 )
 
 func NewKnowledgeCmd() *cobra.Command {
