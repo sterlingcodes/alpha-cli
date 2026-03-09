@@ -4,6 +4,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/sterlingcodes/alpha-cli/internal/productivity/calendar"
+	"github.com/sterlingcodes/alpha-cli/internal/productivity/gdocs"
 	"github.com/sterlingcodes/alpha-cli/internal/productivity/gdrive"
 	"github.com/sterlingcodes/alpha-cli/internal/productivity/gsheets"
 	"github.com/sterlingcodes/alpha-cli/internal/productivity/logseq"
@@ -28,6 +29,7 @@ func NewProductivityCmd() *cobra.Command {
 	cmd.AddCommand(todoist.NewCmd())
 	cmd.AddCommand(trello.NewCmd())
 	cmd.AddCommand(gsheets.NewCmd())
+	cmd.AddCommand(gdocs.NewCmd())
 	cmd.AddCommand(gdrive.NewCmd())
 
 	return cmd

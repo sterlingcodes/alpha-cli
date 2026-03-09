@@ -8,6 +8,9 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
+	"path/filepath"
+	"runtime"
 	"time"
 
 	"github.com/sterlingcodes/alpha-cli/internal/common/config"
@@ -23,21 +26,56 @@ type Client struct {
 	HTTPClient  *http.Client
 }
 
+// alpha365CredentialsPath returns the path to the shared credentials file
+// written by the Alpha 365 desktop app.
+func alpha365CredentialsPath() string {
+	if runtime.GOOS == "windows" {
+		appData := os.Getenv("APPDATA")
+		if appData == "" {
+			home, _ := os.UserHomeDir()
+			appData = filepath.Join(home, "AppData", "Roaming")
+		}
+		return filepath.Join(appData, "alpha365", "google-credentials.json")
+	}
+	home, _ := os.UserHomeDir()
+	return filepath.Join(home, ".config", "alpha365", "google-credentials.json")
+}
+
+// loadAlpha365Credentials reads Google OAuth credentials from the shared
+// file written by the Alpha 365 desktop app.
+func loadAlpha365Credentials() (clientID, clientSecret, refreshToken string, err error) {
+	data, err := os.ReadFile(alpha365CredentialsPath())
+	if err != nil {
+		return "", "", "", err
+	}
+	var creds struct {
+		ClientID     string `json:"client_id"`
+		ClientSecret string `json:"client_secret"`
+		RefreshToken string `json:"refresh_token"`
+	}
+	if err := json.Unmarshal(data, &creds); err != nil {
+		return "", "", "", err
+	}
+	if creds.ClientID == "" || creds.ClientSecret == "" || creds.RefreshToken == "" {
+		return "", "", "", fmt.Errorf("incomplete credentials in shared file")
+	}
+	return creds.ClientID, creds.ClientSecret, creds.RefreshToken, nil
+}
+
 // NewClient reads Google OAuth credentials from config and returns an authenticated client.
+// It falls back to shared credentials from the Alpha 365 desktop app if config keys are missing.
 func NewClient() (*Client, error) {
-	clientID, err := config.MustGet("google_client_id")
-	if err != nil {
-		return nil, fmt.Errorf("google_client_id not configured. Run 'alpha setup show google-oauth' for setup instructions")
-	}
+	clientID, _ := config.MustGet("google_client_id")
+	clientSecret, _ := config.MustGet("google_client_secret")
+	refreshToken, _ := config.MustGet("google_refresh_token")
 
-	clientSecret, err := config.MustGet("google_client_secret")
-	if err != nil {
-		return nil, fmt.Errorf("google_client_secret not configured. Run 'alpha setup show google-oauth' for setup instructions")
-	}
-
-	refreshToken, err := config.MustGet("google_refresh_token")
-	if err != nil {
-		return nil, fmt.Errorf("google_refresh_token not configured. Run 'alpha setup show google-oauth' for setup instructions")
+	// Fall back to shared credentials from Alpha 365 desktop app
+	if clientID == "" || clientSecret == "" || refreshToken == "" {
+		var err error
+		clientID, clientSecret, refreshToken, err = loadAlpha365Credentials()
+		if err != nil {
+			return nil, fmt.Errorf("Google not configured. Connect via Alpha 365 → Services → Google Drive, or run 'alpha setup show google-oauth'")
+		}
 	}
 
 	accessToken, err := ExchangeRefreshToken(clientID, clientSecret, refreshToken)
