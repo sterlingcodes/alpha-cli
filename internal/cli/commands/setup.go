@@ -159,28 +159,6 @@ For Yahoo:
    alpha config set smtp_server smtp.mail.yahoo.com`,
 		TestCommand: "alpha comms email list -l 1",
 	},
-	"calendar": {
-		Service: "calendar",
-		Name:    "Google Calendar",
-		Keys: []KeyInfo{
-			{Key: "google_client_id", Description: "OAuth 2.0 Client ID", Required: true, Example: "123456789.apps.googleusercontent.com"},
-			{Key: "google_client_secret", Description: "OAuth 2.0 Client Secret", Required: true},
-			{Key: "google_refresh_token", Description: "OAuth 2.0 Refresh Token", Required: true},
-		},
-		SetupGuide: `Google Calendar shares OAuth credentials with Drive and Sheets.
-See: alpha setup show google-oauth
-
-If you only need Calendar:
-1. Go to https://console.cloud.google.com/
-2. Enable "Google Calendar API"
-3. Create OAuth Desktop credentials
-4. Get a refresh token via OAuth Playground with Calendar scopes
-5. Run:
-   alpha config set google_client_id <your-client-id>
-   alpha config set google_client_secret <your-client-secret>
-   alpha config set google_refresh_token <your-refresh-token>`,
-		TestCommand: "alpha productivity calendar today",
-	},
 	"notion": {
 		Service: "notion",
 		Name:    "Notion",
@@ -507,42 +485,6 @@ Note: Free tier allows 4 lookups/min, 500/day.`,
 
 Note: Uses the AWS SDK credential chain. IAM permissions needed: s3:ListBucket, s3:GetObject, s3:PutObject.`,
 		TestCommand: "alpha dev s3 buckets",
-	},
-	"google-oauth": {
-		Service: "google-oauth",
-		Name:    "Google OAuth (Drive/Calendar/Sheets)",
-		Keys: []KeyInfo{
-			{Key: "google_client_id", Description: "OAuth 2.0 Client ID (Desktop app)", Required: true, Example: "123456789.apps.googleusercontent.com"},
-			{Key: "google_client_secret", Description: "OAuth 2.0 Client Secret", Required: true},
-			{Key: "google_refresh_token", Description: "OAuth 2.0 Refresh Token", Required: true},
-		},
-		SetupGuide: `1. Go to https://console.cloud.google.com/
-2. Create a new project (or select existing)
-3. Enable these APIs:
-   - Google Drive API: https://console.cloud.google.com/apis/library/drive.googleapis.com
-   - Google Sheets API: https://console.cloud.google.com/apis/library/sheets.googleapis.com
-   - Google Calendar API: https://console.cloud.google.com/apis/library/calendar-json.googleapis.com
-4. Go to Credentials > Create Credentials > OAuth client ID
-5. Select "Desktop app" as application type
-6. Copy Client ID and Client Secret
-7. Get a refresh token using OAuth Playground:
-   a. Go to https://developers.google.com/oauthplayground/
-   b. Click gear icon, check "Use your own OAuth credentials"
-   c. Enter your Client ID and Client Secret
-   d. In Step 1, select these scopes:
-      - Google Drive API v3: https://www.googleapis.com/auth/drive
-      - Google Calendar API v3: all scopes
-      - Google Sheets API v4: all scopes
-   e. Authorize and exchange for tokens
-   f. Copy the Refresh Token from Step 2
-8. Run:
-   alpha config set google_client_id <your-client-id>
-   alpha config set google_client_secret <your-client-secret>
-   alpha config set google_refresh_token <your-refresh-token>
-
-Note: If you already have Calendar OAuth configured, just re-authorize
-with the Drive scope added to get a new refresh token.`,
-		TestCommand: "alpha productivity gdrive list -l 1",
 	},
 	"redis": {
 		Service: "redis",

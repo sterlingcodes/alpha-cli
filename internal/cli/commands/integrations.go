@@ -418,15 +418,6 @@ var allIntegrations = []Integration{
 
 	// Productivity - Auth Required
 	{
-		ID:          "calendar",
-		Name:        "Google Calendar",
-		Group:       "productivity",
-		Description: "View and create calendar events",
-		AuthNeeded:  true,
-		Commands:    []string{"alpha productivity calendar events", "alpha productivity calendar today", "alpha productivity calendar create"},
-		SetupCmd:    "alpha setup show calendar",
-	},
-	{
 		ID:          "notion",
 		Name:        "Notion",
 		Group:       "productivity",
@@ -612,26 +603,6 @@ var allIntegrations = []Integration{
 		Description: "Check passwords against breaches and list public data breaches",
 		AuthNeeded:  false,
 		Commands:    []string{"alpha security hibp password [password]", "alpha security hibp breaches"},
-	},
-
-	// Productivity - Auth Required (Google OAuth)
-	{
-		ID:          "gdrive",
-		Name:        "Google Drive",
-		Group:       "productivity",
-		Description: "Full read/write access to Google Drive: search, read, upload, download, create folders, update, and delete files",
-		AuthNeeded:  true,
-		Commands:    []string{"alpha productivity gdrive search [query]", "alpha productivity gdrive info [file-id]", "alpha productivity gdrive list", "alpha productivity gdrive read [file-id]", "alpha productivity gdrive download [file-id]", "alpha productivity gdrive upload [path]", "alpha productivity gdrive mkdir [name]", "alpha productivity gdrive update [file-id]", "alpha productivity gdrive delete [file-id]"},
-		SetupCmd:    "alpha setup show google-oauth",
-	},
-	{
-		ID:          "gsheets",
-		Name:        "Google Sheets",
-		Group:       "productivity",
-		Description: "Full read/write access to Google Sheets: read, write, append, search, clear, and create spreadsheets",
-		AuthNeeded:  true,
-		Commands:    []string{"alpha productivity gsheets get [spreadsheet-id]", "alpha productivity gsheets read [spreadsheet-id] [range]", "alpha productivity gsheets search [spreadsheet-id] [query]", "alpha productivity gsheets write [spreadsheet-id] [range] [values]", "alpha productivity gsheets append [spreadsheet-id] [range] [values]", "alpha productivity gsheets clear [spreadsheet-id] [range]", "alpha productivity gsheets create --title [name]"},
-		SetupCmd:    "alpha setup show google-oauth",
 	},
 
 	// Utility - No Auth (additional)
@@ -863,13 +834,6 @@ func getIntegrationStatus(integ Integration) string {
 		if sid != "" && token != "" && phone != "" {
 			return statusReady
 		}
-	case "calendar":
-		cid, _ := config.Get("google_client_id")
-		secret, _ := config.Get("google_client_secret")
-		refresh, _ := config.Get("google_refresh_token")
-		if cid != "" && secret != "" && refresh != "" {
-			return statusReady
-		}
 	case "notion":
 		if v, _ := config.Get("notion_token"); v != "" {
 			return statusReady
@@ -961,20 +925,6 @@ func getIntegrationStatus(integ Integration) string {
 		}
 	case "virustotal":
 		if v, _ := config.Get("virustotal_api_key"); v != "" {
-			return statusReady
-		}
-	case "gdrive":
-		cid, _ := config.Get("google_client_id")
-		secret, _ := config.Get("google_client_secret")
-		refresh, _ := config.Get("google_refresh_token")
-		if cid != "" && secret != "" && refresh != "" {
-			return statusReady
-		}
-	case "gsheets":
-		cid, _ := config.Get("google_client_id")
-		secret, _ := config.Get("google_client_secret")
-		refresh, _ := config.Get("google_refresh_token")
-		if cid != "" && secret != "" && refresh != "" {
 			return statusReady
 		}
 	}

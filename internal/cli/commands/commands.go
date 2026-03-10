@@ -156,9 +156,6 @@ func getAllCommands() []Group {
 		{
 			Name: "productivity",
 			Commands: []Cmd{
-				{Command: "alpha productivity calendar events", Desc: "List upcoming events", Flags: "-d days, -l limit"},
-				{Command: "alpha productivity calendar today", Desc: "List today's events"},
-				{Command: "alpha productivity calendar create", Desc: "Create event", Flags: "--title, --start, --end, --desc"},
 				{Command: "alpha productivity notion search", Desc: "Search Notion", Args: "[query]", Flags: "-l limit"},
 				{Command: "alpha productivity notion page", Desc: "Get page content", Args: "[page-id]"},
 				{Command: "alpha productivity notion database", Desc: "Query database", Args: "[database-id]", Flags: "-l limit"},
@@ -166,11 +163,6 @@ func getAllCommands() []Group {
 				{Command: "alpha productivity todoist projects", Desc: "List projects"},
 				{Command: "alpha productivity todoist add", Desc: "Add a task", Args: "[content]", Flags: "-p project, -d due, --priority"},
 				{Command: "alpha productivity todoist complete", Desc: "Complete a task", Args: "[task-id]"},
-				{Command: "alpha productivity gsheets get", Desc: "Get spreadsheet info", Args: "[spreadsheet-id]"},
-				{Command: "alpha productivity gsheets read", Desc: "Read cell values", Args: "[spreadsheet-id] [range]"},
-				{Command: "alpha productivity gsheets search", Desc: "Search for value", Args: "[spreadsheet-id] [query]"},
-				{Command: "alpha productivity gdrive search", Desc: "Search Drive files", Args: "[query]", Flags: "-l limit"},
-				{Command: "alpha productivity gdrive info", Desc: "Get file metadata", Args: "[file-id]"},
 				{Command: "alpha productivity logseq graphs", Desc: "List configured graphs"},
 				{Command: "alpha productivity logseq pages", Desc: "List pages in graph", Flags: "-g graph, -l limit"},
 				{Command: "alpha productivity logseq read", Desc: "Read page content", Args: "[page]", Flags: "-g graph"},
